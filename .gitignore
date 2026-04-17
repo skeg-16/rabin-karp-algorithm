@@ -1,0 +1,14 @@
+# Python Virtual Environment
+.venv/
+venv/
+env/
+
+# Python Cache
+__pycache__/
+*.pyc
+
+# Mac OS System Files
+.DS_Store
+
+# Node/React Modules (kung mag-iinstall ka ng npm packages mamaya)
+node_modules/
