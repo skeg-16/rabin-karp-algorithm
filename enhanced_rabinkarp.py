@@ -121,16 +121,30 @@ def similarity_score(text1, text2, window=5):
     return len(h1 & h2) / len(h1 | h2) * 100
 
 def check_plagiarism(source, suspect, window=5):
+    # ────────────────────────────────────────────────────────────
+    # BAGONG SANITIZATION CODE: 
+    # Tatanggalin nito ang mga line breaks (\n), tabs, at extra 
+    # spaces para maging isang diretsong text na lang bago pa ito 
+    # i-process.
+    # ────────────────────────────────────────────────────────────
+    source = re.sub(r'\s+', ' ', source).strip()
+    suspect = re.sub(r'\s+', ' ', suspect).strip()
+
+    # Phase 1: Normalization
     norm_source = normalize_text(source)
     norm_suspect = normalize_text(suspect)
 
+    # Phase 2: Scoring
     score = similarity_score(norm_source, norm_suspect, window)
-    sentences = [s.strip() for s in re.split(r'(?<=[.!?])\s+', suspect.strip()) if s.strip()]
+    
+    # Phase 3: Sentence Splitting (Ngayon ay malinis na dahil sa sanitization)
+    sentences = [s.strip() for s in re.split(r'(?<=[.!?])\s+', suspect) if s.strip()]
 
     matched        = []
     unmatched      = []
     total_spurious = 0
 
+    # Phase 4: Rabin-Karp Matcher per sentence
     for s in sentences:
         norm_s = normalize_text(s)
         if not norm_s:

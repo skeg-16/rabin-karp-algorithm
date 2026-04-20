@@ -63,20 +63,23 @@ function App() {
 
   const getHighlightedHTML = (text, matches) => {
     if (!text) return { __html: "" };
-    let highlightedText = text;
+    
+    // FIX: Sanitize the display text exactly like the Python backend
+    // Tatanggalin nito ang hidden \n at extra spaces para mag-match nang sakto!
+    let cleanDisplayText = text.replace(/\s+/g, ' ').trim();
     
     if (matches && matches.length > 0) {
       matches.forEach(match => {
         const escapedMatch = match.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
         const regex = new RegExp(`(${escapedMatch})`, 'gi');
-        highlightedText = highlightedText.replace(
+        cleanDisplayText = cleanDisplayText.replace(
           regex, 
           `<mark style="background-color: #ffeb3b; padding: 2px 4px; border-radius: 3px; font-weight: bold; box-shadow: 0 1px 2px rgba(0,0,0,0.2); color: black;">$1</mark>`
         );
       });
     }
     
-    return { __html: highlightedText };
+    return { __html: cleanDisplayText };
   };
 
   const getScoreColor = (score) => {
@@ -231,7 +234,8 @@ function App() {
             <div style={{ flex: 1, minWidth: 0 }}>
               <h3 style={{ marginTop: 0, color: '#2980b9' }}>Source Document</h3>
               <div className="scrollable-box">
-                {sourceText}
+                {/* Tinanggal din natin ang extra spaces dito para pumantay ang itsura sa Detected window */}
+                {sourceText.replace(/\s+/g, ' ').trim()}
               </div>
             </div>
 
