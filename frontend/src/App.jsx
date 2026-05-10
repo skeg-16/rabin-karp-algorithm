@@ -1,23 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import mammoth from 'mammoth';
+import './App.css';
+
+// SVG Icons
+const MoonIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+);
+
+const SunIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+);
+
+const UploadIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+);
+
+const ZapIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+);
+
+const TerminalIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg>
+);
 
 function App() {
   const [sourceText, setSourceText] = useState('');
   const [suspectText, setSuspectText] = useState('');
-  const [windowSize, setWindowSize] = useState(5);
+  const [windowSize, setWindowSize] = useState('5');
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+  
+  // Drag states
+  const [dragActiveSource, setDragActiveSource] = useState(false);
+  const [dragActiveSuspect, setDragActiveSuspect] = useState(false);
 
-  const handleFileUpload = (e, setTargetText) => {
-    const file = e.target.files[0];
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+  };
+
+  const processFile = (file, setTargetText) => {
     if (!file) return;
 
     const fileExtension = file.name.split('.').pop().toLowerCase();
 
     if (fileExtension !== "txt" && fileExtension !== "docx") {
-      alert("❌ Invalid file format! Tanging .txt at .docx files lamang ang tinatanggap ng system, base sa Scope and Limitations ng research.");
-      e.target.value = "";
+      alert("❌ Invalid file format! Only .txt and .docx files are accepted by the system.");
       return;
     }
 
@@ -33,16 +71,40 @@ function App() {
           .then((result) => setTargetText(result.value))
           .catch((err) => {
             console.error(err);
-            alert("❌ May error sa pagbasa ng DOCX file.");
+            alert("❌ An error occurred while reading the DOCX file.");
           });
       };
       reader.readAsArrayBuffer(file);
     }
   };
 
+  const handleFileUpload = (e, setTargetText) => {
+    const file = e.target.files[0];
+    processFile(file, setTargetText);
+    e.target.value = ""; // Reset
+  };
+
+  const handleDrop = (e, setTargetText, setDragActive) => {
+    e.preventDefault();
+    setDragActive(false);
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      processFile(e.dataTransfer.files[0], setTargetText);
+    }
+  };
+
+  const handleDrag = (e, setDragActive) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === "dragenter" || e.type === "dragover") {
+      setDragActive(true);
+    } else if (e.type === "dragleave") {
+      setDragActive(false);
+    }
+  };
+
   const handleAnalyze = async () => {
     if (!sourceText || !suspectText) {
-      alert("Please enter both Source and Suspect documents.");
+      alert("Please provide both Source and Suspect documents for analysis.");
       return;
     }
 
@@ -51,7 +113,7 @@ function App() {
       const response = await axios.post('http://127.0.0.1:8000/api/analyze', {
         source_text: sourceText,
         suspect_text: suspectText,
-        window_size: parseInt(windowSize)
+        window_size: parseInt(windowSize) || 5
       });
       setResults(response.data);
     } catch (error) {
@@ -64,17 +126,17 @@ function App() {
   const getHighlightedHTML = (text, matches) => {
     if (!text) return { __html: "" };
     
-    // FIX: Sanitize the display text exactly like the Python backend
-    // Tatanggalin nito ang hidden \n at extra spaces para mag-match nang sakto!
     let cleanDisplayText = text.replace(/\s+/g, ' ').trim();
     
     if (matches && matches.length > 0) {
-      matches.forEach(match => {
+      const sortedMatches = [...matches].sort((a, b) => b.length - a.length);
+      
+      sortedMatches.forEach(match => {
         const escapedMatch = match.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
         const regex = new RegExp(`(${escapedMatch})`, 'gi');
         cleanDisplayText = cleanDisplayText.replace(
           regex, 
-          `<mark style="background-color: #ffeb3b; padding: 2px 4px; border-radius: 3px; font-weight: bold; box-shadow: 0 1px 2px rgba(0,0,0,0.2); color: black;">$1</mark>`
+          `<span class="highlighted-sentence">$1</span>`
         );
       });
     }
@@ -83,183 +145,218 @@ function App() {
   };
 
   const getScoreColor = (score) => {
-    if (score <= 15) return '#4caf50'; // Green
-    if (score <= 40) return '#ff9800'; // Orange
-    return '#f44336'; // Red
+    if (score <= 15) return 'var(--success)';
+    if (score <= 40) return 'var(--warning)';
+    return 'var(--danger)';
   };
 
   return (
-    <div style={{ maxWidth: '1200px', margin: '0 auto', fontFamily: 'Arial, sans-serif', padding: '20px', color: '#333' }}>
-      
-      {/* INTERNAL CSS PARA SA RESPONSIVENESS AT SCROLLBARS */}
-      <style>
-        {`
-          .responsive-flex {
-            display: flex;
-            gap: 20px;
-          }
-          .scrollable-box {
-            max-height: 400px;
-            overflow-y: auto;
-            padding: 15px;
-            background-color: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            line-height: 1.6;
-            color: #444;
-            white-space: pre-wrap; /* Keeps paragraphs intact */
-            word-wrap: break-word; /* Prevents text from overflowing sideways */
-          }
-          /* Custom Scrollbar for better UI */
-          .scrollable-box::-webkit-scrollbar {
-            width: 8px;
-          }
-          .scrollable-box::-webkit-scrollbar-track {
-            background: #f1f1f1; 
-          }
-          .scrollable-box::-webkit-scrollbar-thumb {
-            background: #bdc3c7; 
-            border-radius: 4px;
-          }
-          .scrollable-box::-webkit-scrollbar-thumb:hover {
-            background: #95a5a6; 
-          }
-          @media (max-width: 800px) {
-            .responsive-flex {
-              flex-direction: column;
-            }
-          }
-        `}
-      </style>
-
+    <div className="app-container">
       {/* HEADER */}
-      <div style={{ textAlign: 'center', marginBottom: '30px' }}>
-        <h1 style={{ margin: '0 0 10px 0', color: '#2c3e50', fontSize: 'clamp(24px, 4vw, 32px)' }}>Rabin-Karp Cross-Lingual Plagiarism Detector</h1>
-        <p style={{ margin: 0, color: '#7f8c8d', fontSize: 'clamp(14px, 2vw, 16px)' }}>Enhanced with Dictionary-Based Normalization for Tagalog-English Text</p>
-      </div>
+      <header className="app-header">
+        <div className="brand-section">
+          <h1>Rabin-Karp Detector</h1>
+          <p>Cross-Lingual Plagiarism Detection • Tagalog-English Normalization</p>
+        </div>
+        <button className="theme-toggle" onClick={toggleTheme}>
+          {theme === 'light' ? <MoonIcon /> : <SunIcon />}
+          {theme === 'light' ? 'Dark Mode' : 'Light Mode'}
+        </button>
+      </header>
 
       {/* INPUT SECTION */}
-      <div className="responsive-flex" style={{ marginBottom: '20px' }}>
-        <div style={{ flex: 1, backgroundColor: '#f8f9fa', padding: '15px', borderRadius: '8px', border: '1px solid #e9ecef' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px', flexWrap: 'wrap', gap: '10px' }}>
-            <h3 style={{ margin: 0, color: '#2980b9' }}>Source Document (English)</h3>
-            <input type="file" accept=".txt,.docx" onChange={(e) => handleFileUpload(e, setSourceText)} style={{ fontSize: '12px', maxWidth: '100%' }} />
+      <div className="section-grid">
+        {/* SOURCE */}
+        <div className="card">
+          <div className="card-header">
+            <div>
+              <h3 className="card-title source-title">Source Document (English)</h3>
+              <div className="drag-hint"><UploadIcon /> Drag & Drop or Upload (.txt, .docx)</div>
+            </div>
+            <div className="file-input-wrapper">
+              <label className="file-input-label">
+                <UploadIcon /> Upload File
+              </label>
+              <input type="file" accept=".txt,.docx" onChange={(e) => handleFileUpload(e, setSourceText)} />
+            </div>
           </div>
-          <textarea
-            style={{ width: '100%', height: '250px', padding: '10px', boxSizing: 'border-box', border: '1px solid #ccc', borderRadius: '4px', resize: 'vertical' }}
-            value={sourceText}
-            onChange={(e) => setSourceText(e.target.value)}
-            placeholder="Paste original English text here or upload a .txt/.docx file..."
-          />
+          
+          <div 
+            className={`drop-zone ${dragActiveSource ? 'dragging' : ''}`}
+            onDragEnter={(e) => handleDrag(e, setDragActiveSource)}
+            onDragOver={(e) => handleDrag(e, setDragActiveSource)}
+            onDragLeave={(e) => handleDrag(e, setDragActiveSource)}
+            onDrop={(e) => handleDrop(e, setSourceText, setDragActiveSource)}
+          >
+            {dragActiveSource && (
+              <div className="drop-overlay">
+                <UploadIcon />
+                <span>Drop Source File Here</span>
+              </div>
+            )}
+            <textarea
+              className="modern-textarea"
+              value={sourceText}
+              onChange={(e) => setSourceText(e.target.value)}
+              placeholder="Paste original English text or drag a file here..."
+            />
+          </div>
         </div>
 
-        <div style={{ flex: 1, backgroundColor: '#f8f9fa', padding: '15px', borderRadius: '8px', border: '1px solid #e9ecef' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px', flexWrap: 'wrap', gap: '10px' }}>
-            <h3 style={{ margin: 0, color: '#c0392b' }}>Suspect Document (Taglish)</h3>
-            <input type="file" accept=".txt,.docx" onChange={(e) => handleFileUpload(e, setSuspectText)} style={{ fontSize: '12px', maxWidth: '100%' }} />
+        {/* SUSPECT */}
+        <div className="card">
+          <div className="card-header">
+            <div>
+              <h3 className="card-title suspect-title">Suspect Document (Taglish)</h3>
+              <div className="drag-hint"><UploadIcon /> Drag & Drop or Upload (.txt, .docx)</div>
+            </div>
+            <div className="file-input-wrapper">
+              <label className="file-input-label">
+                <UploadIcon /> Upload File
+              </label>
+              <input type="file" accept=".txt,.docx" onChange={(e) => handleFileUpload(e, setSuspectText)} />
+            </div>
           </div>
-          <textarea
-            style={{ width: '100%', height: '250px', padding: '10px', boxSizing: 'border-box', border: '1px solid #ccc', borderRadius: '4px', resize: 'vertical' }}
-            value={suspectText}
-            onChange={(e) => setSuspectText(e.target.value)}
-            placeholder="Paste suspect Taglish text here or upload a .txt/.docx file..."
-          />
+
+          <div 
+            className={`drop-zone ${dragActiveSuspect ? 'dragging' : ''}`}
+            onDragEnter={(e) => handleDrag(e, setDragActiveSuspect)}
+            onDragOver={(e) => handleDrag(e, setDragActiveSuspect)}
+            onDragLeave={(e) => handleDrag(e, setDragActiveSuspect)}
+            onDrop={(e) => handleDrop(e, setSuspectText, setDragActiveSuspect)}
+          >
+            {dragActiveSuspect && (
+              <div className="drop-overlay">
+                <UploadIcon />
+                <span>Drop Suspect File Here</span>
+              </div>
+            )}
+            <textarea
+              className="modern-textarea"
+              value={suspectText}
+              onChange={(e) => setSuspectText(e.target.value)}
+              placeholder="Paste suspect Taglish text or drag a file here..."
+            />
+          </div>
         </div>
       </div>
 
       {/* CONTROLS */}
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', gap: '15px', marginBottom: '30px', padding: '15px', backgroundColor: '#ecf0f1', borderRadius: '8px' }}>
-        <label style={{ fontWeight: 'bold' }}>N-Gram Window Size: </label>
-        <input 
-          type="number" 
-          value={windowSize}
-          onChange={(e) => setWindowSize(e.target.value)}
-          style={{ width: '60px', padding: '8px', textAlign: 'center', borderRadius: '4px', border: '1px solid #bdc3c7' }}
-          min="1"
-        />
+      <div className="controls-bar">
+        <div className="input-group">
+          <label>N-Gram Window Size (1-10)</label>
+          <input 
+            type="text" 
+            inputMode="numeric"
+            className="number-input"
+            value={windowSize}
+            onChange={(e) => {
+              const val = e.target.value;
+              // Remove anything that is not a digit
+              const numericValue = val.replace(/[^0-9]/g, '');
+              
+              if (numericValue === '') {
+                setWindowSize('');
+                return;
+              }
+
+              let num = parseInt(numericValue, 10);
+              
+              // Strictly clamp between 1 and 10
+              if (num > 10) num = 10;
+              if (num < 1 && numericValue !== '') num = 1;
+              
+              setWindowSize(num.toString());
+            }}
+            onBlur={() => {
+              // Ensure it's at least 1 if not empty when focus is lost
+              if (windowSize === '' || parseInt(windowSize) < 1) {
+                setWindowSize('5');
+              }
+            }}
+            placeholder="5"
+          />
+        </div>
         <button 
+          className="analyze-button"
           onClick={handleAnalyze} 
-          disabled={loading} 
-          style={{ 
-            padding: '10px 25px', 
-            cursor: loading ? 'not-allowed' : 'pointer', 
-            fontWeight: 'bold', 
-            backgroundColor: loading ? '#95a5a6' : '#27ae60', 
-            color: 'white', 
-            border: 'none', 
-            borderRadius: '4px',
-            fontSize: '16px',
-            width: '100%',
-            maxWidth: '300px'
-          }}
+          disabled={loading}
         >
-          {loading ? "Analyzing..." : "Run Cross-Lingual Scan"}
+          {loading ? "Analyzing..." : <><ZapIcon /> Run Analysis</>}
         </button>
       </div>
 
       {/* RESULTS DISPLAY */}
       {results && (
-        <div style={{ border: '2px solid #bdc3c7', borderRadius: '8px', overflow: 'hidden' }}>
-          
-          {/* SCORE HEADER */}
-          <div style={{ backgroundColor: '#ecf0f1', padding: '20px', borderBottom: '2px solid #bdc3c7', textAlign: 'center' }}>
-            <h2 style={{ margin: '0 0 15px 0' }}>Analysis Report</h2>
+        <div className="results-card">
+          <div className="results-header">
+            <h2>Detailed Analysis Report</h2>
             
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', maxWidth: '500px', margin: '0 auto' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', marginBottom: '5px', fontSize: 'clamp(16px, 3vw, 20px)', fontWeight: 'bold' }}>
-                <span>Similarity Score:</span>
-                <span style={{ color: getScoreColor(parseFloat(results.similarity_percent)) }}>
+            <div className="score-display">
+              <div className="score-info">
+                <span className="score-label">Similarity Score</span>
+                <span className="score-value" style={{ color: getScoreColor(parseFloat(results.similarity_percent)) }}>
                   {results.similarity_percent}%
                 </span>
               </div>
-              <div style={{ width: '100%', backgroundColor: '#dfe6e9', borderRadius: '10px', height: '15px', overflow: 'hidden' }}>
-                <div style={{ 
-                  width: `${results.similarity_percent}%`, 
-                  backgroundColor: getScoreColor(parseFloat(results.similarity_percent)), 
-                  height: '100%', 
-                  transition: 'width 0.5s ease-in-out' 
-                }}></div>
+              <div className="progress-container">
+                <div 
+                  className="progress-bar" 
+                  style={{ 
+                    width: `${results.similarity_percent}%`, 
+                    backgroundColor: getScoreColor(parseFloat(results.similarity_percent))
+                  }}
+                />
               </div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '20px', marginTop: '15px', fontSize: '14px', color: '#555' }}>
-                <span><strong>Matched Sentences:</strong> {results.matched_count} / {results.total_sentences}</span>
-                <span><strong>Spurious Matches (Collisions):</strong> {results.spurious_count}</span>
+              
+              <div className="stats-grid">
+                <div className="stat-item">
+                  <span className="stat-label">Matched Sentences</span>
+                  <span className="stat-value">{results.matched_count} / {results.total_sentences}</span>
+                </div>
+                <div className="stat-item">
+                  <span className="stat-label">Spurious Matches</span>
+                  <span className="stat-value">{results.spurious_count}</span>
+                </div>
+                <div className="stat-item">
+                  <span className="stat-label">Algorithm</span>
+                  <span className="stat-value">Rabin-Karp</span>
+                </div>
               </div>
             </div>
           </div>
 
           {/* SIDE-BY-SIDE HIGHLIGHTING VIEW */}
-          <div className="responsive-flex" style={{ padding: '20px', backgroundColor: '#fff', gap: '20px' }}>
-            
-            {/* SOURCE VIEW */}
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <h3 style={{ marginTop: 0, color: '#2980b9' }}>Source Document</h3>
-              <div className="scrollable-box">
-                {/* Tinanggal din natin ang extra spaces dito para pumantay ang itsura sa Detected window */}
+          <div className="comparison-grid">
+            <div className="comparison-box">
+              <h3 className="card-title source-title" style={{ marginBottom: '1rem' }}>Source Reference</h3>
+              <div className="scroll-box">
                 {sourceText.replace(/\s+/g, ' ').trim()}
               </div>
             </div>
 
-            {/* SUSPECT VIEW (HIGHLIGHTED) */}
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <h3 style={{ marginTop: 0, color: '#c0392b' }}>Suspect Document (Detected)</h3>
-              <p style={{ fontSize: '12px', color: '#7f8c8d', margin: '-10px 0 10px 0' }}>
-                * Sentences highlighted in yellow are translated matches detected by Rabin-Karp.
-              </p>
+            <div className="comparison-box">
+              <h3 className="card-title suspect-title" style={{ marginBottom: '1rem' }}>Detected Plagiarism</h3>
               <div 
-                className="scrollable-box"
+                className="scroll-box"
                 dangerouslySetInnerHTML={getHighlightedHTML(suspectText, results.matched_sentences)}
               />
             </div>
-
           </div>
 
-          {/* BACKEND NORMALIZATION LOGS */}
-          <div style={{ padding: '15px 20px', backgroundColor: '#2d3436', color: '#dfe6e9', fontSize: '12px', maxHeight: '200px', overflowY: 'auto' }}>
-            <p style={{ margin: '0 0 5px 0', fontWeight: 'bold', color: '#74b9ff' }}>[System Logs] Normalized Tokens (Pre-Hashing Phase):</p>
-            <p style={{ margin: '0 0 5px 0', wordWrap: 'break-word' }}><strong>Source:</strong> {results.normalized_source}</p>
-            <p style={{ margin: 0, wordWrap: 'break-word', color: '#ff7675' }}><strong>Suspect:</strong> {results.normalized_suspect}</p>
+          {/* SYSTEM LOGS */}
+          <div className="system-logs">
+            <div className="log-header">
+              <TerminalIcon />
+              <span>Normalization Logs (Pre-Hashing Phase)</span>
+            </div>
+            <div className="log-entry">
+              <strong>SOURCE:</strong> {results.normalized_source}
+            </div>
+            <div className="log-entry suspect">
+              <strong>SUSPECT:</strong> {results.normalized_suspect}
+            </div>
           </div>
-
         </div>
       )}
     </div>
