@@ -36,6 +36,15 @@ function App() {
   const [dragActiveSource, setDragActiveSource] = useState(false);
   const [dragActiveSuspect, setDragActiveSuspect] = useState(false);
 
+  // Ref for auto-scroll
+  const resultsRef = React.useRef(null);
+
+  useEffect(() => {
+    if (results && resultsRef.current) {
+      resultsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [results]);
+
   useEffect(() => {
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
@@ -288,7 +297,7 @@ function App() {
 
       {/* RESULTS DISPLAY */}
       {results && (
-        <div className="results-card">
+        <div className="results-card" ref={resultsRef}>
           <div className="results-header">
             <h2>Detailed Analysis Report</h2>
             
