@@ -1,353 +1,1151 @@
 {
-  "aaral": "study",
-  "agham": "science",
-  "akda": "literary work",
-  "akdang": "literary work",
-  "akin": "my",
-  "aking": "my",
-  "aklat": "book",
-  "ako": "i",
-  "alam": "know",
-  "amerikano": "american",
-  "aming": "our",
-  "anak": "child",
-  "antas": "level",
-  "anumang": "any",
-  "anyo": "form",
-  "apat": "four",
-  "aralin": "lesson",
-  "araling": "study",
-  "artikulo": "article",
-  "ating": "our",
-  "ayon": "according to",
-  "bagaman": "although",
-  "bagay": "thing",
-  "bago": "before",
-  "bagong": "new",
-  "bahagi": "part",
-  "bahay": "house",
-  "baitang": "grade",
-  "bakit": "why",
-  "balita": "news",
-  "bansa": "country",
-  "barangay": "village",
-  "batay": "based",
-  "batayan": "basis",
-  "batas": "law",
-  "bawat": "each",
-  "bilang": "as",
-  "buhay": "life",
-  "bukod": "besides",
-  "buong": "whole",
-  "daan": "way",
-  "dagdag": "addition",
-  "dahil": "because",
-  "dahilan": "reason",
-  "dalawang": "two",
-  "datos": "data",
-  "dapat": "must",
-  "dating": "former",
-  "ding": "also",
-  "disiplina": "discipline",
-  "dito": "here",
-  "diyos": "god",
-  "edukasyon": "education",
-  "eksilo": "exile",
-  "epekto": "effect",
-  "estado": "state",
-  "estudyante": "student",
-  "gabay": "guide",
-  "gamit": "use",
-  "gamitin": "use",
-  "ganitong": "this kind",
-  "gawain": "activity",
-  "gawaing": "activity",
-  "gaya": "like",
-  "gayon": "so",
-  "gayundin": "also",
-  "ginagamit": "used",
-  "ginamit": "used",
-  "grupo": "group",
-  "guro": "teacher",
-  "habang": "while",
-  "hakbang": "step",
-  "halimbawa": "example",
-  "hamon": "challenge",
-  "hanggang": "until",
-  "hapon": "afternoon",
-  "higit": "more",
-  "hindi": "not",
-  "hinggil": "regarding",
-  "iba": "other",
-  "ibang": "other",
-  "ibig": "meaning",
-  "ideya": "idea",
-  "ikalawang": "second",
-  "ilan": "some",
-  "ilang": "some",
-  "ilalim": "under",
-  "impormasyon": "information",
-  "indibidwal": "individual",
-  "ingles": "english",
-  "interes": "interest",
-  "isa": "one",
-  "isang": "one",
-  "isinagawa": "conducted",
-  "ito": "this",
-  "itong": "this",
-  "iyon": "that",
-  "iyong": "your",
-  "kaalaman": "knowledge",
-  "kababaihan": "women",
-  "kabataan": "youth",
-  "kabila": "despite",
-  "kabilang": "included",
-  "kagamitan": "equipment",
-  "kagamitang": "equipment",
-  "kahalagahan": "importance",
-  "kahulugan": "meaning",
-  "kailangan": "need",
-  "kailangang": "need",
-  "kakayahan": "ability",
-  "kakulangan": "shortage",
-  "kalagayan": "condition",
-  "kalahok": "participant",
-  "kalikasan": "nature",
-  "kami": "we",
-  "kanila": "them",
-  "kanilang": "their",
-  "kanya": "his",
-  "kanyang": "his",
-  "kaniyang": "his",
-  "kapag": "when",
-  "kapaligiran": "environment",
-  "kapwa": "fellow",
-  "karamihan": "majority",
-  "karanasan": "experience",
-  "kasalukuyan": "present",
-  "kasalukuyang": "present",
-  "kasama": "companion",
-  "kasarian": "gender",
-  "kasaysayan": "history",
-  "kasi": "because",
-  "katangian": "characteristic",
-  "katulad": "similar",
-  "katutubong": "indigenous",
-  "kaugnay": "related",
-  "kaugnayan": "connection",
-  "kay": "to",
-  "kaya": "so",
-  "kaysa": "than",
-  "kinakailangan": "necessary",
-  "klase": "class",
-  "komunidad": "community",
-  "komunikasyon": "communication",
-  "kong": "my",
-  "konsepto": "concept",
-  "konteksto": "context",
-  "kultura": "culture",
-  "kultural": "cultural",
-  "kulturang": "culture",
-  "kundi": "but rather",
-  "kung": "if",
-  "laban": "against",
-  "labas": "outside",
-  "lahat": "all",
-  "lalo": "especially",
-  "lamang": "only",
-  "lang": "only",
-  "larangan": "field",
-  "layunin": "objective",
-  "lipunan": "society",
-  "lipunang": "society",
-  "lokal": "local",
-  "loob": "inside",
-  "lubos": "completely",
-  "lugar": "place",
-  "lupa": "land",
-  "maaari": "can",
-  "maaaring": "can",
-  "maayos": "orderly",
-  "madalas": "often",
-  "mag": "to",
-  "mag-aaral": "student",
-  "maging": "become",
-  "magiging": "will be",
-  "magkaroon": "to have",
-  "magulang": "parent",
-  "mahalaga": "important",
-  "mahalagang": "important",
-  "makikita": "can be seen",
-  "malaki": "big",
-  "malaking": "big",
-  "malalim": "deep",
-  "malawak": "wide",
-  "malinaw": "clear",
-  "man": "even",
-  "mananaliksik": "researcher",
-  "marami": "many",
-  "maraming": "many",
-  "mas": "more",
-  "mataas": "high",
-  "matapos": "after",
-  "may": "have",
-  "mayroon": "have",
-  "mayroong": "have",
-  "militar": "military",
-  "miyembro": "member",
-  "mula": "from",
-  "muling": "again",
-  "mundo": "world",
-  "nabanggit": "mentioned",
-  "nagbibigay": "giving",
-  "nagiging": "becoming",
-  "naging": "became",
-  "nagkaroon": "had",
-  "nais": "desire",
-  "namin": "our",
-  "nang": "when",
-  "nasa": "in",
-  "nasabing": "said",
-  "natin": "our",
-  "ngayon": "now",
-  "nga": "indeed",
-  "ngunit": "but",
-  "nila": "their",
-  "nilang": "their",
-  "nina": "of",
-  "nito": "of this",
-  "nitong": "of this",
-  "niya": "his",
-  "niyang": "his",
-  "noon": "then",
-  "noong": "when",
-  "oras": "time",
-  "paaralan": "school",
-  "paano": "how",
-  "pag": "when",
-  "pag-aaral": "study",
-  "pagbabago": "change",
-  "pagbasa": "reading",
-  "pagbibigay": "giving",
-  "pagbuo": "formation",
-  "pagiging": "becoming",
-  "pagitan": "between",
-  "pagkain": "food",
-  "pagkakaroon": "having",
-  "pagkakataon": "opportunity",
-  "pagkilos": "action",
-  "pagkatapos": "after",
-  "pagkatuto": "learning",
-  "paglalakbay": "journey",
-  "pagpapahalaga": "value",
-  "pagpapaunlad": "development",
-  "pagsasalin": "translation",
-  "pagsulat": "writing",
-  "pagsusuri": "analysis",
-  "pagtuturo": "teaching",
-  "pahayag": "statement",
-  "paksa": "topic",
-  "pamahalaan": "government",
-  "pamamagitan": "means",
-  "pamamaraan": "methodology",
-  "pamantasan": "university",
-  "pamayanan": "community",
-  "pambansa": "national",
-  "pambansang": "national",
-  "pamilya": "family",
-  "panahon": "time",
-  "pananaliksik": "research",
-  "pananaw": "perspective",
-  "panayam": "interview",
-  "pandemya": "pandemic",
-  "pang": "for",
-  "pangangailangan": "need",
-  "pangunahing": "primary",
-  "pangungusap": "sentence",
-  "pangwika": "linguistic",
-  "paniniwala": "belief",
-  "panitikan": "literature",
-  "panlipunan": "social",
-  "papel": "role",
-  "para": "for",
-  "paraan": "method",
-  "partikular": "particular",
-  "pati": "also",
-  "patuloy": "continuous",
-  "pero": "but",
-  "pilipinong": "filipino",
-  "porsyento": "percentage",
-  "problema": "problem",
-  "programa": "program",
-  "programang": "program",
-  "proseso": "process",
-  "proyekto": "project",
-  "publikasyon": "publication",
-  "resulta": "result",
-  "ring": "also",
-  "rito": "here",
-  "ritwal": "ritual",
-  "saan": "where",
-  "sabihin": "say",
-  "salik": "factor",
-  "salita": "word",
-  "salitang": "word",
-  "samahan": "organization",
-  "sanaysay": "essay",
-  "sapagkat": "because",
-  "sapat": "enough",
-  "sarili": "self",
-  "sariling": "own",
-  "sila": "they",
-  "silang": "they",
-  "sina": "they",
-  "sining": "art",
-  "sistema": "system",
-  "siya": "he",
-  "siyang": "he",
-  "subalit": "but",
-  "suliranin": "problem",
-  "sumusunod": "following",
-  "tagalog": "tagalog",
-  "talahanayan": "table",
-  "tanong": "question",
-  "tao": "person",
-  "taon": "year",
-  "taong": "year",
-  "tatlong": "three",
-  "tayo": "we",
-  "teknolohiya": "technology",
-  "teksto": "text",
-  "tema": "theme",
-  "tingnan": "look",
-  "trabaho": "work",
-  "tubig": "water",
-  "tugon": "response",
-  "tula": "poem",
-  "tulad": "like",
-  "tulong": "help",
-  "tunay": "true",
-  "tungkol": "about",
-  "tungo": "towards",
-  "ugnayan": "relationship",
-  "ukol": "regarding",
-  "una": "first",
-  "unang": "first",
-  "unawa": "understanding",
-  "unibersidad": "university",
-  "upang": "in order to",
-  "uri": "type",
-  "usapin": "issue",
-  "wala": "none",
-  "walang": "none",
-  "wika": "language",
-  "wikang": "language",
-  "yung": "that",
-  "siyentipiko": "scientific",
-  "basehan": "basis",
-  "kahiwagaan": "mystery",
-  "literatura": "literature",
-  "rebyu": "review",
-  "konsepto": "concept",
-  "pangkalusugan": "health"
+  "study": [
+    "aaral",
+    "pag-aaral",
+    "mag-aaral",
+    "stadi",
+    "study",
+    "araling",
+    "aralin",
+    "studies"
+  ],
+  "filipino": [
+    "filipino",
+    "pinoy",
+    "pilipino",
+    "pilipinong"
+  ],
+  "journal": [
+    "journal",
+    "dyornal",
+    "lathalain",
+    "journals",
+    "publikasyon"
+  ],
+  "language": [
+    "wika",
+    "wikang",
+    "lenggwahe",
+    "language"
+  ],
+  "philippines": [
+    "pilipinas",
+    "republika ng pilipinas",
+    "philippines",
+    "philippine"
+  ],
+  "teacher": [
+    "guro",
+    "titser",
+    "tagapagturo",
+    "maestro",
+    "maestra",
+    "teachers",
+    "mga guro",
+    "gurong",
+    "propesor"
+  ],
+  "research": [
+    "pananaliksik",
+    "saliksik",
+    "riserts",
+    "research"
+  ],
+  "education": [
+    "education",
+    "edukasyon",
+    "pagkatuto",
+    "edukasyong",
+    "edukeysyon"
+  ],
+  "teaching": [
+    "pagtuturo",
+    "titsing",
+    "teaching",
+    "nagtuturo",
+    "gumagabay",
+    "nagleksyon"
+  ],
+  "university": [
+    "unibersidad",
+    "pamantasan",
+    "university"
+  ],
+  "learning": [
+    "pagkatuto",
+    "learning",
+    "kaalaman"
+  ],
+  "analysis": [
+    "pagsusuri",
+    "analisis",
+    "pag-aanalisa",
+    "analysis"
+  ],
+  "researcher": [
+    "mananaliksik",
+    "risertser",
+    "tagapagsaliksik",
+    "researchers",
+    "siyentipiko"
+  ],
+  "experience": [
+    "karanasan",
+    "ekspiryensya",
+    "pinagdaanan",
+    "karanasang",
+    "natutunan",
+    "ekspiryens"
+  ],
+  "period": [
+    "panahon",
+    "tyempo",
+    "oras",
+    "period"
+  ],
+  "development": [
+    "development",
+    "pag-unlad",
+    "debelopment",
+    "pag-asenso",
+    "pagsulong",
+    "paglago"
+  ],
+  "culture": [
+    "kultura",
+    "culture",
+    "kinagawian",
+    "kulturang"
+  ],
+  "student": [
+    "mag-aaral",
+    "estudyante",
+    "student",
+    "students",
+    "iskolar"
+  ],
+  "knowledge": [
+    "kaalaman",
+    "knowledge",
+    "karunungan",
+    "dunong",
+    "talino",
+    "nolidj"
+  ],
+  "data": [
+    "datos",
+    "data",
+    "impormasyon",
+    "tala",
+    "deyta"
+  ],
+  "method": [
+    "paraan",
+    "metodo",
+    "method",
+    "pamamaraan",
+    "metodo",
+    "sistema",
+    "metod"
+  ],
+  "social": [
+    "social",
+    "sosyal",
+    "panlipunan",
+    "panlipunang",
+    "pambayan"
+  ],
+  "manila": [
+    "manila",
+    "maynila"
+  ],
+  "participant": [
+    "kalahok",
+    "participant",
+    "respondente",
+    "sumagot",
+    "kasali",
+    "respondent"
+  ],
+  "international": [
+    "international",
+    "internasyonal",
+    "pandaigdigan"
+  ],
+  "skill": [
+    "kasanayan",
+    "skill",
+    "iskil",
+    "kakayahan",
+    "kakayahang",
+    "galing",
+    "abilidad",
+    "competencies",
+    "kasanayang",
+    "skills",
+    "talento"
+  ],
+  "history": [
+    "kasaysayan",
+    "historya",
+    "nakaraan",
+    "history",
+    "makasaysayan"
+  ],
+  "writing": [
+    "sulatin",
+    "akda",
+    "artikulo",
+    "sanaysay",
+    "papel"
+  ],
+  "objective": [
+    "layunin",
+    "mithiin",
+    "tunguhin",
+    "objective"
+  ],
+  "life": [
+    "buhay",
+    "pamumuhay",
+    "life",
+    "layp",
+    "kapalaran"
+  ],
+  "community": [
+    "komunidad",
+    "pamayanan",
+    "community"
+  ],
+  "society": [
+    "lipunan",
+    "sosyedad",
+    "society",
+    "lipunang",
+    "bayan",
+    "komunidad"
+  ],
+  "meaning": [
+    "kahulugan",
+    "ibig sabihin",
+    "meaning",
+    "nangangahulugang",
+    "sumisimbolo",
+    "tumutukoy",
+    "mining"
+  ],
+  "science": [
+    "science",
+    "agham",
+    "siyensya",
+    "sciences"
+  ],
+  "change": [
+    "pagbabago",
+    "transpormasyon",
+    "change",
+    "pagbabagong",
+    "pag-iiba",
+    "paglipat",
+    "pagsasaayos",
+    "tseng"
+  ],
+  "place": [
+    "lugar",
+    "pook",
+    "lokasyon",
+    "place"
+  ],
+  "school": [
+    "school",
+    "paaralan",
+    "eskwelahan",
+    "iskul",
+    "aralan",
+    "klase"
+  ],
+  "art": [
+    "art",
+    "arts",
+    "sining",
+    "arte"
+  ],
+  "concept": [
+    "konsepto",
+    "ideya",
+    "concept",
+    "dalumat",
+    "konseptong",
+    "teorya",
+    "pananaw"
+  ],
+  "curriculum": [
+    "curriculum",
+    "kurikulum",
+    "programa",
+    "pangkurikulum",
+    "pang-aralin",
+    "pampaaralan",
+    "pang-akademya",
+    "kurikular"
+  ],
+  "ritual": [
+    "ritwal",
+    "gawi",
+    "tradisyon",
+    "ritual",
+    "bogwa"
+  ],
+  "context": [
+    "konteksto",
+    "sitwasyon",
+    "context"
+  ],
+  "reading": [
+    "reading",
+    "pagbasa",
+    "pagbabasa",
+    "pag-unawa",
+    "rinding"
+  ],
+  "college": [
+    "kolehiyo",
+    "pamantasan",
+    "college"
+  ],
+  "guide": [
+    "gabay",
+    "patnubay",
+    "gayd"
+  ],
+  "multidisciplinary": [
+    "multidisiplinaryo",
+    "multidisciplinary"
+  ],
+  "translation": [
+    "pagsasalin",
+    "pag-translate",
+    "transleysyon",
+    "salin",
+    "translation"
+  ],
+  "belief": [
+    "paniniwala",
+    "pananampalataya",
+    "bilip",
+    "bilips"
+  ],
+  "media": [
+    "media",
+    "midya",
+    "peysbuk"
+  ],
+  "nature": [
+    "kalikasan",
+    "kaligiran",
+    "neytsur"
+  ],
+  "program": [
+    "program",
+    "programang",
+    "programa",
+    "palatuntunan"
+  ],
+  "information": [
+    "impormasyon",
+    "datos",
+    "information",
+    "detalye"
+  ],
+  "english": [
+    "ingles",
+    "english"
+  ],
+  "lesson": [
+    "aralin",
+    "leksyon",
+    "aral",
+    "kaalaman",
+    "leson"
+  ],
+  "world": [
+    "mundo",
+    "daigdig",
+    "earth",
+    "world",
+    "werld"
+  ],
+  "academic": [
+    "akademikong",
+    "akademiko",
+    "academic"
+  ],
+  "condition": [
+    "kalagayan",
+    "sitwasyon",
+    "kondisyon"
+  ],
+  "statement": [
+    "pahayag",
+    "sinabi",
+    "deklarasyon"
+  ],
+  "deep": [
+    "malalim",
+    "matindi",
+    "dip"
+  ],
+  "text": [
+    "teksto",
+    "text",
+    "artikulo"
+  ],
+  "between": [
+    "pagitan",
+    "gitna",
+    "between",
+    "sa",
+    "bitwin"
+  ],
+  "asia": [
+    "asya",
+    "asia",
+    "kontinente",
+    "esya",
+    "asyano",
+    "oriental",
+    "taga-asya",
+    "asyan"
+  ],
+  "equipment": [
+    "kagamitan",
+    "gamit",
+    "instrumento",
+    "kagamitang"
+  ],
+  "village": [
+    "barangay",
+    "baranggay",
+    "komunidad"
+  ],
+  "vicente": [
+    "vicente"
+  ],
+  "residential": [
+    "residential",
+    "residensyal",
+    "panirahan"
+  ],
+  "citizen": [
+    "mamamayan",
+    "taumbayan",
+    "sitisen"
+  ],
+  "god": [
+    "diyos",
+    "panginoon",
+    "god",
+    "hesus",
+    "kristo",
+    "shaddai"
+  ],
+  "project": [
+    "proyekto",
+    "plano",
+    "project"
+  ],
+  "theme": [
+    "tema",
+    "paksa",
+    "theme"
+  ],
+  "communication": [
+    "communication",
+    "komunikasyon",
+    "ugnayan",
+    "usapan",
+    "pakikipagtalastasan"
+  ],
+  "family": [
+    "pamilya",
+    "mag-anak",
+    "family"
+  ],
+  "book": [
+    "aklat",
+    "libro",
+    "book",
+    "babasahin",
+    "buk"
+  ],
+  "cultural": [
+    "cultural",
+    "kultural",
+    "pangkalinangan"
+  ],
+  "literary work": [
+    "akda",
+    "likha",
+    "panitikan",
+    "akdang"
+  ],
+  "management": [
+    "pamamahala",
+    "pangangasiwa",
+    "management"
+  ],
+  "article": [
+    "article",
+    "artikulo",
+    "lathalain"
+  ],
+  "question": [
+    "tanong",
+    "katanungan",
+    "question"
+  ],
+  "subject": [
+    "asignaturang",
+    "asignatura",
+    "sabjek",
+    "subjects",
+    "aralin",
+    "kurso",
+    "paksa"
+  ],
+  "system": [
+    "sistema",
+    "sistem",
+    "system"
+  ],
+  "technology": [
+    "technology",
+    "teknolohiya",
+    "makinarya",
+    "agham",
+    "tek"
+  ],
+  "child": [
+    "bata",
+    "paslit",
+    "tsayld",
+    "anak",
+    "supling",
+    "children"
+  ],
+  "literature": [
+    "panitikan",
+    "literatura",
+    "literature",
+    "literatyur"
+  ],
+  "body": [
+    "katawan",
+    "pisikal",
+    "body"
+  ],
+  "interview": [
+    "panayam",
+    "interbyu",
+    "interview",
+    "pakikipanayam",
+    "usapan"
+  ],
+  "class": [
+    "klase",
+    "uri",
+    "class",
+    "pangkat",
+    "aralin",
+    "klas"
+  ],
+  "ijfmr": [
+    "ijfmr"
+  ],
+  "native": [
+    "katutubo",
+    "neytib",
+    "katutubong"
+  ],
+  "land": [
+    "lupa",
+    "lupain",
+    "land"
+  ],
+  "help": [
+    "tulong",
+    "suporta",
+    "asiste",
+    "helping"
+  ],
+  "space": [
+    "espasyo",
+    "puwang",
+    "space"
+  ],
+  "discipline": [
+    "disiplina",
+    "asal",
+    "discipline"
+  ],
+  "government": [
+    "pamahalaan",
+    "gobyerno",
+    "government",
+    "liderato"
+  ],
+  "idea": [
+    "ideya",
+    "kaisipan",
+    "idea"
+  ],
+  "house": [
+    "bahay",
+    "tahanan",
+    "house"
+  ],
+  "carabao": [
+    "kalabaw",
+    "carabao"
+  ],
+  "water": [
+    "tubig",
+    "water"
+  ],
+  "worker": [
+    "manggagawa",
+    "empleyado",
+    "trabahador"
+  ],
+  "environment": [
+    "kapaligiran",
+    "kalikasan",
+    "environment"
+  ],
+  "basis": [
+    "batayan",
+    "basehan",
+    "pamantayan"
+  ],
+  "journey": [
+    "paglalakbay",
+    "biyahe",
+    "travel"
+  ],
+  "deped": [
+    "deped"
+  ],
+  "region": [
+    "rehiyon",
+    "probinsya",
+    "region"
+  ],
+  "linguistic": [
+    "pangwika",
+    "wika",
+    "linggwistiko",
+    "linguistics",
+    "linggwistiks"
+  ],
+  "lapulapu": [
+    "lapulapu"
+  ],
+  "recognition": [
+    "pagkilala",
+    "rekognisyon"
+  ],
+  "health": [
+    "health",
+    "kalusugan",
+    "katawan",
+    "sigla",
+    "lakas",
+    "helt"
+  ],
+  "pandemic": [
+    "pandemya",
+    "pandemic",
+    "kobid"
+  ],
+  "lifestyle": [
+    "pamumuhay",
+    "buhay"
+  ],
+  "technical": [
+    "teknikal",
+    "technical"
+  ],
+  "training": [
+    "pagsasanay",
+    "treyning"
+  ],
+  "tradition": [
+    "tradisyon",
+    "kinagawian"
+  ],
+  "publishing": [
+    "publishing",
+    "paglalathala"
+  ],
+  "mathematics": [
+    "mathematics",
+    "matematika",
+    "sipnayan",
+    "mat",
+    "matematiks"
+  ],
+  "music": [
+    "musika",
+    "music"
+  ],
+  "theory": [
+    "teorya",
+    "palagay",
+    "hinuha",
+    "prinsipyo"
+  ],
+  "original": [
+    "orihinal",
+    "original"
+  ],
+  "educational": [
+    "educational",
+    "pang-edukasyon"
+  ],
+  "church": [
+    "simbahan",
+    "iglesya"
+  ],
+  "south": [
+    "timog",
+    "south"
+  ],
+  "magellan": [
+    "magellan"
+  ],
+  "design": [
+    "disenyo",
+    "design"
+  ],
+  "law": [
+    "batas",
+    "law"
+  ],
+  "lake": [
+    "lawa",
+    "lake"
+  ],
+  "palawan": [
+    "palawan"
+  ],
+  "filipinology": [
+    "filipinolohiya",
+    "pag-aaral ng pilipinas"
+  ],
+  "appropriate": [
+    "angkop",
+    "bagay",
+    "nararapat",
+    "tama",
+    "wasto"
+  ],
+  "thought": [
+    "kaisipan",
+    "ideya",
+    "pananaw",
+    "isip",
+    "konsepto"
+  ],
+  "framework": [
+    "balangkas",
+    "istruktura",
+    "plano",
+    "banghay",
+    "pormat"
+  ],
+  "values": [
+    "pagpapahalagang",
+    "importansya",
+    "paggalang",
+    "pag-ibig",
+    "balyu"
+  ],
+  "woman": [
+    "babae",
+    "ginang",
+    "binibini",
+    "dalaga",
+    "kababaihan",
+    "wimen"
+  ],
+  "economy": [
+    "ekonomiya",
+    "kabuhayan",
+    "pananalapi",
+    "kalakalan",
+    "ekonomiks"
+  ],
+  "discourse": [
+    "diskurso",
+    "talakayan",
+    "usapan",
+    "pag-uusap",
+    "debate"
+  ],
+  "mother": [
+    "mother",
+    "ina",
+    "nanay",
+    "inay",
+    "mama"
+  ],
+  "sound": [
+    "tunog",
+    "ingay",
+    "himig",
+    "boses",
+    "sawnd"
+  ],
+  "song": [
+    "awitin",
+    "kanta",
+    "himig",
+    "musika",
+    "song",
+    "awiting"
+  ],
+  "bicol": [
+    "bikol",
+    "bikolano",
+    "rehiyon",
+    "lengguwahe"
+  ],
+  "saint": [
+    "santo",
+    "banal",
+    "poon",
+    "sagrado",
+    "seynt",
+    "santos"
+  ],
+  "department": [
+    "department",
+    "kagawaran",
+    "sangay",
+    "opisina",
+    "departamento"
+  ],
+  "progress": [
+    "unlad",
+    "asenso",
+    "sulong",
+    "progreso",
+    "pag-angat"
+  ],
+  "interpretation": [
+    "interpretasyon",
+    "paliwanag",
+    "pagpapakahulugan",
+    "pag-unawa",
+    "pagsasalin",
+    "pagtingin",
+    "mining"
+  ],
+  "fruit": [
+    "bunga",
+    "resulta",
+    "epekto",
+    "kinabukasan",
+    "prutas"
+  ],
+  "parents": [
+    "magulang",
+    "nanay",
+    "tatay",
+    "tagapag-alaga",
+    "pareyts"
+  ],
+  "philosophy": [
+    "pilosopiya",
+    "kaisipan",
+    "pananaw",
+    "paniniwala"
+  ],
+  "ghoul": [
+    "aswang",
+    "halimaw",
+    "bampira",
+    "maligno"
+  ],
+  "opportunity": [
+    "pagkakataon",
+    "tsansa",
+    "panahon",
+    "opurtunidad",
+    "tyempo"
+  ],
+  "animal": [
+    "hayop",
+    "nilalang",
+    "alaga",
+    "halimaw",
+    "animal"
+  ],
+  "material": [
+    "materyal",
+    "gamit",
+    "bagay",
+    "pisikal",
+    "materyales"
+  ],
+  "organization": [
+    "organisasyon",
+    "samahan",
+    "grupo",
+    "kapisanan"
+  ],
+  "province": [
+    "lalawigan",
+    "probinsya",
+    "rehiyon",
+    "bayan",
+    "probins"
+  ],
+  "narrative": [
+    "naratibo",
+    "kwento",
+    "salaysay",
+    "paglalahad",
+    "naratib"
+  ],
+  "arts": [
+    "artes",
+    "sining",
+    "kakayahan",
+    "obra",
+    "arts"
+  ],
+  "aspect": [
+    "aspekto",
+    "bahagi",
+    "anggulo",
+    "panig",
+    "aspeto",
+    "aspektong",
+    "mukha"
+  ],
+  "synchronous": [
+    "synchronous",
+    "sabay",
+    "magkasabay",
+    "kasalukuyan",
+    "sinkronus"
+  ],
+  "century": [
+    "siglo",
+    "dantaon",
+    "daantaon",
+    "senturyo",
+    "sentyuri"
+  ],
+  "structure": [
+    "estruktura",
+    "balangkas",
+    "gusali",
+    "porma",
+    "istruktura"
+  ],
+  "polytechnic": [
+    "politeknikong",
+    "teknikal",
+    "unibersidad",
+    "paaralan",
+    "politeknik"
+  ],
+  "environmental": [
+    "environmental",
+    "pangkalikasan",
+    "kapaligiran",
+    "natural",
+    "enbayronmental"
+  ],
+  "strategy": [
+    "estratehiya",
+    "pamamaraan",
+    "plano",
+    "taktika",
+    "istratedyi"
+  ],
+  "hero": [
+    "bayani",
+    "idolo",
+    "bida",
+    "magiting",
+    "hiro"
+  ],
+  "tourism": [
+    "tourism",
+    "turismo",
+    "paglalakbay",
+    "bakasyon",
+    "turism"
+  ],
+  "religion": [
+    "relihiyon",
+    "paniniwala",
+    "pananampalataya",
+    "sekta",
+    "relidyon",
+    "religion"
+  ],
+  "website": [
+    "website",
+    "pahina",
+    "portal",
+    "site",
+    "websayt"
+  ],
+  "congregation": [
+    "kongregasyon",
+    "samahan",
+    "kapulungan",
+    "grupo"
+  ],
+  "look": [
+    "tingnan",
+    "sulyapan",
+    "masdan",
+    "suriin",
+    "tignan"
+  ],
+  "covid": [
+    "covid",
+    "sakit",
+    "pandemya",
+    "virus",
+    "kobid"
+  ],
+  "cebu": [
+    "cebu",
+    "probinsya",
+    "rehiyon",
+    "sebu"
+  ],
+  "carton": [
+    "karton",
+    "kahon",
+    "papel",
+    "lalagyan"
+  ],
+  "spanish": [
+    "espanyol",
+    "kastila",
+    "dayuhan",
+    "wika"
+  ],
+  "center": [
+    "sentro",
+    "center",
+    "gitna",
+    "puso",
+    "pokus",
+    "senter",
+    "tanggapan"
+  ],
+  "curricular": [
+    "pangkurikulum",
+    "pang-aralin",
+    "pampaaralan",
+    "pang-akademya",
+    "kurikular"
+  ],
+  "eastern": [
+    "silangang",
+    "asya",
+    "oryental",
+    "silangan",
+    "istern"
+  ],
+  "swf": [
+    "swf",
+    "pormat",
+    "file"
+  ],
+  "facebook": [
+    "facebook",
+    "social",
+    "media",
+    "platform",
+    "peysbuk"
+  ],
+  "evangelization": [
+    "ebanghelisasyon",
+    "pangangaral",
+    "misyon",
+    "pagtuturo",
+    "ebanghelyo"
+  ],
+  "saints": [
+    "santos",
+    "banal",
+    "santo",
+    "apelyido"
+  ],
+  "mactan": [
+    "mactan",
+    "isla",
+    "cebu"
+  ],
+  "historical": [
+    "historical",
+    "makasaysayan",
+    "nakaraan",
+    "luma",
+    "historikal"
+  ],
+  "mix": [
+    "mix",
+    "combination",
+    "kombinasyon",
+    "halo",
+    "halu-halo"
+  ],
+  "influence": [
+    "influence",
+    "influences",
+    "impluwensya",
+    "impluwensiya",
+    "impluwensiyang"
+  ],
+  "colonization": [
+    "colonization",
+    "pananakop",
+    "kolonisasyon"
+  ],
+  "priority": [
+    "priority",
+    "prioridad",
+    "pangunahin"
+  ],
+  "strive": [
+    "strive",
+    "nagsisikap",
+    "nagsisikap",
+    "nagpupursigi"
+  ],
+  "secure": [
+    "secure",
+    "makamit",
+    "makuha",
+    "matiyak"
+  ],
+  "future": [
+    "future",
+    "kinabukasan",
+    "hinaharap"
+  ],
+  "combination": [
+    "combination",
+    "kombinasyon"
+  ]
 }

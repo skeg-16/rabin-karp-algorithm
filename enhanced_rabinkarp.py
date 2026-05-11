@@ -27,7 +27,19 @@ def load_json_file(filename):
 
 # Load Stop-words (solves SOP #2: Algorithmic Noise)
 loaded_stopwords = load_json_file("stopwords.json")
-FILIPINO_STOP_WORDS = set(loaded_stopwords) if loaded_stopwords else set()
+FILIPINO_STOP_WORDS = set()
+if loaded_stopwords:
+    if isinstance(loaded_stopwords, dict):
+        # Flatten keys and all lists of synonyms into a single set
+        for key, values in loaded_stopwords.items():
+            FILIPINO_STOP_WORDS.add(key.lower())
+            if isinstance(values, list):
+                FILIPINO_STOP_WORDS.update(v.lower() for v in values)
+            else:
+                FILIPINO_STOP_WORDS.add(values.lower())
+    else:
+        # Fallback for old list format
+        FILIPINO_STOP_WORDS = set(w.lower() for w in loaded_stopwords)
 
 # Load and Invert Dictionary (solves SOP #1: Semantic Blindness)
 # ENHANCEMENT 1: Many-to-One Synonym Mapping
@@ -137,25 +149,40 @@ def check_plagiarism(source, suspect, window=5):
     # Phase 2: Scoring
     score = similarity_score(norm_source, norm_suspect, window)
     
-    # Phase 3: Sentence Splitting (Ngayon ay malinis na dahil sa sanitization)
+    # Phase 3: Sentence Splitting
     sentences = [s.strip() for s in re.split(r'(?<=[.!?])\s+', suspect) if s.strip()]
+    
+    # Get all hashes from the source for quick lookup
+    source_hashes = get_ngram_hashes(norm_source, window)
 
     matched        = []
     unmatched      = []
-    total_spurious = 0
 
-    # Phase 4: Rabin-Karp Matcher per sentence
+    # Phase 4: Flexible N-gram Matcher per sentence
     for s in sentences:
         norm_s = normalize_text(s)
         if not norm_s:
             continue
             
-        hits, spurious = rabin_karp_search(norm_s, norm_source)
-        total_spurious += spurious
-        if hits:
+        sentence_hashes = get_ngram_hashes(norm_s, window)
+        if not sentence_hashes:
+            unmatched.append(s)
+            continue
+            
+        # Count how many fragments of this sentence exist in the source
+        overlap = [h for h in sentence_hashes if h in source_hashes]
+        
+        # THRESHOLD: If more than 30% of the sentence fragments match, mark as plagiarized
+        match_ratio = len(overlap) / len(sentence_hashes)
+        
+        if match_ratio >= 0.3:  # 30% threshold for bilingual detection
             matched.append(s)
         else:
             unmatched.append(s)
+
+    # Note: Spurious matches are computed at the global similarity level now
+    # but for individual sentence matching, we use the set-based overlap.
+    total_spurious = 0 
 
     return {
         "similarity_percent" : round(score, 2),

@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import mammoth from 'mammoth';
+import * as pdfjsLib from 'pdfjs-dist';
 import './App.css';
+
+// Configure PDF.js Worker
+pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.mjs`;
 
 // SVG Icons
 const MoonIcon = () => (
@@ -31,6 +35,7 @@ function App() {
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(false);
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+  const [notification, setNotification] = useState(null);
   
   // Drag states
   const [dragActiveSource, setDragActiveSource] = useState(false);
@@ -38,6 +43,14 @@ function App() {
 
   // Ref for auto-scroll
   const resultsRef = React.useRef(null);
+
+  // Auto-hide notification
+  useEffect(() => {
+    if (notification) {
+      const timer = setTimeout(() => setNotification(null), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [notification]);
 
   useEffect(() => {
     if (results && resultsRef.current) {
@@ -58,30 +71,58 @@ function App() {
     setTheme(prev => prev === 'light' ? 'dark' : 'light');
   };
 
-  const processFile = (file, setTargetText) => {
+  const processFile = async (file, setTargetText) => {
     if (!file) return;
 
     const fileExtension = file.name.split('.').pop().toLowerCase();
 
-    if (fileExtension !== "txt" && fileExtension !== "docx") {
-      alert("❌ Invalid file format! Only .txt and .docx files are accepted by the system.");
+    if (fileExtension !== "txt" && fileExtension !== "docx" && fileExtension !== "pdf") {
+      alert("❌ Invalid file format! Only .txt, .docx, and .pdf files are accepted by the system.");
       return;
     }
 
     if (fileExtension === "txt") {
       const reader = new FileReader();
-      reader.onload = (event) => setTargetText(event.target.result);
+      reader.onload = (event) => {
+        setTargetText(event.target.result);
+        setNotification({ type: 'success', message: `Successfully loaded ${file.name}` });
+      };
       reader.readAsText(file);
     } else if (fileExtension === "docx") {
       const reader = new FileReader();
       reader.onload = (event) => {
         const arrayBuffer = event.target.result;
         mammoth.extractRawText({ arrayBuffer: arrayBuffer })
-          .then((result) => setTargetText(result.value))
+          .then((result) => {
+            setTargetText(result.value);
+            setNotification({ type: 'success', message: `Successfully parsed DOCX: ${file.name}` });
+          })
           .catch((err) => {
             console.error(err);
-            alert("❌ An error occurred while reading the DOCX file.");
+            setNotification({ type: 'error', message: "Failed to parse DOCX file." });
           });
+      };
+      reader.readAsArrayBuffer(file);
+    } else if (fileExtension === "pdf") {
+      setNotification({ type: 'info', message: "Processing PDF... This might take a second." });
+      const reader = new FileReader();
+      reader.onload = async (event) => {
+        try {
+          const arrayBuffer = event.target.result;
+          const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+          let fullText = "";
+          for (let i = 1; i <= pdf.numPages; i++) {
+            const page = await pdf.getPage(i);
+            const content = await page.getTextContent();
+            const strings = content.items.map(item => item.str);
+            fullText += strings.join(" ") + "\n";
+          }
+          setTargetText(fullText.trim());
+          setNotification({ type: 'success', message: `Successfully extracted text from PDF: ${file.name}` });
+        } catch (err) {
+          console.error(err);
+          setNotification({ type: 'error', message: "Failed to process PDF file." });
+        }
       };
       reader.readAsArrayBuffer(file);
     }
@@ -113,7 +154,12 @@ function App() {
 
   const handleAnalyze = async () => {
     if (!sourceText || !suspectText) {
-      alert("Please provide both Source and Suspect documents for analysis.");
+      setNotification({ type: 'error', message: "Please provide both Source and Suspect documents." });
+      return;
+    }
+
+    if (getWordCount(sourceText) > WORD_LIMIT || getWordCount(suspectText) > WORD_LIMIT) {
+      setNotification({ type: 'error', message: `Documents exceed the ${WORD_LIMIT} word limit!` });
       return;
     }
 
@@ -153,6 +199,40 @@ function App() {
     return { __html: cleanDisplayText };
   };
 
+  const getWordCount = (text) => {
+    if (!text) return 0;
+    return text.trim().split(/\s+/).filter(Boolean).length;
+  };
+
+  const WORD_LIMIT = 2500;
+
+  const SIMILARITY_SCALE = [
+    {
+      range: [0, 15],
+      label: "Acceptable / Baseline Overlap",
+      color: "var(--success)",
+      interpretation: "This is a normal occurrence. It captures common academic 'boilerplate' language (e.g., 'results of the study,' 'conceptual framework') and standard translated terms that naturally overlap. This is not considered plagiarism."
+    },
+    {
+      range: [16, 25],
+      label: "Marginal / Needs Manual Review",
+      color: "var(--warning)",
+      interpretation: "This indicates potential fragmented matching. The system detected sentences that may have been partially paraphrased or code-switched while maintaining the original core structure. Manual review is recommended."
+    },
+    {
+      range: [26, 50],
+      label: "Moderate Plagiarism",
+      color: "var(--danger)",
+      interpretation: "Clear evidence of translation-based intellectual theft. Since stop-words are already filtered out, matches in this range suggest that core arguments are direct translations of the source."
+    },
+    {
+      range: [51, 100],
+      label: "Severe / Blatant Plagiarism",
+      color: "#991b1b",
+      interpretation: "Massive copy-pasting or wholesale translation of entire paragraphs or chapters. The student made zero effort to synthesize or originalize the information."
+    }
+  ];
+
   const getScoreColor = (score) => {
     if (score <= 15) return 'var(--success)';
     if (score <= 40) return 'var(--warning)';
@@ -161,10 +241,18 @@ function App() {
 
   return (
     <div className="app-container">
+      {notification && (
+        <div className={`notification-banner ${notification.type}`}>
+          {notification.type === 'success' ? '✅' : notification.type === 'error' ? '❌' : 'ℹ️'}
+          {notification.message}
+          <button className="close-notif" onClick={() => setNotification(null)}>&times;</button>
+        </div>
+      )}
+
       {/* HEADER */}
       <header className="app-header">
         <div className="brand-section">
-          <h1>Rabin-Karp Detector</h1>
+          <h1>Rabin-Karp Detector <span className="pdf-badge">PDF Supported</span></h1>
           <p>Cross-Lingual Plagiarism Detection • Tagalog-English Normalization</p>
         </div>
         <button className="theme-toggle" onClick={toggleTheme}>
@@ -180,13 +268,13 @@ function App() {
           <div className="card-header">
             <div>
               <h3 className="card-title source-title">Source Document (English)</h3>
-              <div className="drag-hint"><UploadIcon /> Drag & Drop or Upload (.txt, .docx)</div>
+              <div className="drag-hint"><UploadIcon /> Drag & Drop or Upload (.txt, .docx, .pdf)</div>
             </div>
             <div className="file-input-wrapper">
               <label className="file-input-label">
                 <UploadIcon /> Upload File
               </label>
-              <input type="file" accept=".txt,.docx" onChange={(e) => handleFileUpload(e, setSourceText)} />
+              <input type="file" accept=".txt,.docx,.pdf" onChange={(e) => handleFileUpload(e, setSourceText)} />
             </div>
           </div>
           
@@ -209,6 +297,9 @@ function App() {
               onChange={(e) => setSourceText(e.target.value)}
               placeholder="Paste original English text or drag a file here..."
             />
+            <div className={`word-counter ${getWordCount(sourceText) > WORD_LIMIT ? 'limit-exceeded' : ''}`}>
+              {getWordCount(sourceText).toLocaleString()} / {WORD_LIMIT.toLocaleString()} words
+            </div>
           </div>
         </div>
 
@@ -217,13 +308,13 @@ function App() {
           <div className="card-header">
             <div>
               <h3 className="card-title suspect-title">Suspect Document (Taglish)</h3>
-              <div className="drag-hint"><UploadIcon /> Drag & Drop or Upload (.txt, .docx)</div>
+              <div className="drag-hint"><UploadIcon /> Drag & Drop or Upload (.txt, .docx, .pdf)</div>
             </div>
             <div className="file-input-wrapper">
               <label className="file-input-label">
                 <UploadIcon /> Upload File
               </label>
-              <input type="file" accept=".txt,.docx" onChange={(e) => handleFileUpload(e, setSuspectText)} />
+              <input type="file" accept=".txt,.docx,.pdf" onChange={(e) => handleFileUpload(e, setSuspectText)} />
             </div>
           </div>
 
@@ -246,6 +337,9 @@ function App() {
               onChange={(e) => setSuspectText(e.target.value)}
               placeholder="Paste suspect Taglish text or drag a file here..."
             />
+            <div className={`word-counter ${getWordCount(suspectText) > WORD_LIMIT ? 'limit-exceeded' : ''}`}>
+              {getWordCount(suspectText).toLocaleString()} / {WORD_LIMIT.toLocaleString()} words
+            </div>
           </div>
         </div>
       </div>
@@ -332,6 +426,43 @@ function App() {
                   <span className="stat-value">Rabin-Karp</span>
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* SIMILARITY SCALE TABLE */}
+          <div className="scale-section">
+            <h3 className="scale-title">The Enhanced Rabin-Karp Similarity Scale</h3>
+            <div className="scale-table-wrapper">
+              <table className="scale-table">
+                <thead>
+                  <tr>
+                    <th>Similarity Score</th>
+                    <th>Classification</th>
+                    <th>Interpretation & System Context</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {SIMILARITY_SCALE.map((item, index) => {
+                    const isCurrent = parseFloat(results.similarity_percent) >= item.range[0] && 
+                                     parseFloat(results.similarity_percent) <= item.range[1];
+                    return (
+                      <tr key={index} className={isCurrent ? 'active-row' : ''}>
+                        <td className="score-range" style={{ color: item.color }}>
+                          {item.range[0]}% - {item.range[1]}%
+                        </td>
+                        <td className="classification">
+                          <span className="badge" style={{ backgroundColor: item.color + '20', color: item.color }}>
+                            {item.label}
+                          </span>
+                        </td>
+                        <td className="interpretation">
+                          {item.interpretation}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
             </div>
           </div>
 

@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
@@ -43,6 +43,20 @@ def analyze_text(request: PlagiarismRequest):
     Tumatanggap ng Source at Suspect text mula sa Frontend,
     pinapadaan sa pre-processing, at ibinabalik ang similarity score.
     """
+    # ENHANCEMENT: Word Count Limit (SOP Performance)
+    # 2.5k words is equivalent to around 8-10 pages of academic text.
+    WORD_LIMIT = 2500
+    
+    source_words = len(request.source_text.split())
+    suspect_words = len(request.suspect_text.split())
+    
+    if source_words > WORD_LIMIT or suspect_words > WORD_LIMIT:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Word limit exceeded! Maximum allowed is {WORD_LIMIT} words. "
+                   f"Your input: Source ({source_words} words), Suspect ({suspect_words} words)."
+        )
+
     result = check_plagiarism(
         source=request.source_text,
         suspect=request.suspect_text,
