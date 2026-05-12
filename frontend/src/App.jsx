@@ -28,6 +28,10 @@ const TerminalIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg>
 );
 
+const InfoIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+);
+
 function App() {
   const [sourceText, setSourceText] = useState('');
   const [suspectText, setSuspectText] = useState('');
@@ -476,11 +480,36 @@ function App() {
             </div>
 
             <div className="comparison-box">
-              <h3 className="card-title suspect-title" style={{ marginBottom: '1rem' }}>Detected Plagiarism</h3>
+              <div className="box-header-flex">
+                <h3 className="card-title suspect-title">Detected Plagiarism</h3>
+                <div className="highlight-legend">
+                  <span className="legend-dot"></span>
+                  ≥30% Similarity
+                </div>
+              </div>
               <div 
                 className="scroll-box"
                 dangerouslySetInnerHTML={getHighlightedHTML(suspectText, results.matched_sentences)}
               />
+            </div>
+          </div>
+
+          {/* HIGHLIGHT EXPLANATION SECTION */}
+          <div className="info-section">
+            <div className="info-header">
+              <InfoIcon />
+              <span>How to Interpret the Highlights?</span>
+            </div>
+            <div className="info-content">
+              <p>
+                The <strong>yellow highlights</strong> indicate sentences where the system detected a significant amount of text reuse. 
+                Unlike basic detectors, this system uses <strong>Flexible N-gram Matching</strong>:
+              </p>
+              <ul>
+                <li><strong>Bilingual Detection:</strong> It recognizes matches even if English words were translated to Tagalog (e.g., "Student" to "Mag-aaral").</li>
+                <li><strong>30% Threshold:</strong> A sentence is highlighted if at least <strong>30%</strong> of its unique fragments (N-grams) match the source document. This ensures that even "paraphrased" sentences are caught.</li>
+                <li><strong>Noise Reduction:</strong> Common words (ang, mga, the, is) are ignored to focus on the actual content.</li>
+              </ul>
             </div>
           </div>
 
