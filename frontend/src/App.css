@@ -136,7 +136,7 @@
   border: 1px solid var(--border-color);
   background: var(--bg-secondary);
   color: var(--text-primary);
-  resize: vertical;
+  resize: none;
   line-height: 1.6;
   transition: all 0.2s;
   font-size: 0.9375rem;
