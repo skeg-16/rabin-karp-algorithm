@@ -32,6 +32,18 @@ const InfoIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
 );
 
+const LoaderIcon = () => (
+  <svg className="spinner" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+);
+
+const XIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+);
+
+const TrashIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+);
+
 function App() {
   const [sourceText, setSourceText] = useState('');
   const [suspectText, setSuspectText] = useState('');
@@ -41,9 +53,30 @@ function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
   const [notification, setNotification] = useState(null);
   
-  // Drag states
+  // Drag & Processing states
   const [dragActiveSource, setDragActiveSource] = useState(false);
   const [dragActiveSuspect, setDragActiveSuspect] = useState(false);
+  const [isSourceProcessing, setIsSourceProcessing] = useState(false);
+  const [isSuspectProcessing, setIsSuspectProcessing] = useState(false);
+  const [sourceProgress, setSourceProgress] = useState(0);
+  const [suspectProgress, setSuspectProgress] = useState(0);
+  
+  // Cancellation refs
+  const cancelRefs = React.useRef({ source: false, suspect: false });
+
+  // Word Limit Modal State
+  const [limitModal, setLimitModal] = useState({
+    show: false,
+    text: '',
+    type: '',
+    wordCount: 0
+  });
+
+  // Clear Confirmation Modal State
+  const [confirmModal, setConfirmModal] = useState({
+    show: false,
+    type: ''
+  });
 
   // Ref for auto-scroll
   const resultsRef = React.useRef(null);
@@ -75,8 +108,12 @@ function App() {
     setTheme(prev => prev === 'light' ? 'dark' : 'light');
   };
 
-  const processFile = async (file, setTargetText) => {
+  const processFile = async (file, type) => {
     if (!file) return;
+
+    const setTargetText = type === 'source' ? setSourceText : setSuspectText;
+    const setIsLoading = type === 'source' ? setIsSourceProcessing : setIsSuspectProcessing;
+    const setProgress = type === 'source' ? setSourceProgress : setSuspectProgress;
 
     const fileExtension = file.name.split('.').pop().toLowerCase();
 
@@ -85,75 +122,150 @@ function App() {
       return;
     }
 
-    if (fileExtension === "txt") {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setTargetText(event.target.result);
-        setNotification({ type: 'success', message: `Successfully loaded ${file.name}` });
-      };
-      reader.readAsText(file);
-    } else if (fileExtension === "docx") {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const arrayBuffer = event.target.result;
-        mammoth.extractRawText({ arrayBuffer: arrayBuffer })
-          .then((result) => {
-            setTargetText(result.value);
-            setNotification({ type: 'success', message: `Successfully parsed DOCX: ${file.name}` });
-          })
-          .catch((err) => {
-            console.error(err);
-            setNotification({ type: 'error', message: "Failed to parse DOCX file." });
-          });
-      };
-      reader.readAsArrayBuffer(file);
-    } else if (fileExtension === "pdf") {
-      setNotification({ type: 'info', message: "Processing PDF... This might take a second." });
-      const reader = new FileReader();
-      reader.onload = async (event) => {
-        try {
+    setIsLoading(true);
+    setProgress(0);
+    cancelRefs.current[type] = false;
+
+    const handleTextExtracted = (extractedText) => {
+      const count = getWordCount(extractedText);
+      if (count > WORD_LIMIT) {
+        setLimitModal({
+          show: true,
+          text: extractedText,
+          type: type,
+          wordCount: count
+        });
+      } else {
+        setTargetText(extractedText);
+      }
+    };
+
+    try {
+      if (fileExtension === "txt") {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          if (cancelRefs.current[type]) return;
+          setProgress(100);
+          handleTextExtracted(event.target.result);
+          setNotification({ type: 'success', message: `Successfully loaded ${file.name}` });
+          setIsLoading(false);
+        };
+        reader.readAsText(file);
+      } else if (fileExtension === "docx") {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          if (cancelRefs.current[type]) return;
           const arrayBuffer = event.target.result;
-          const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-          let fullText = "";
-          for (let i = 1; i <= pdf.numPages; i++) {
-            const page = await pdf.getPage(i);
-            const content = await page.getTextContent();
-            const strings = content.items.map(item => item.str);
-            fullText += strings.join(" ") + "\n";
-          }
-          setTargetText(fullText.trim());
-          setNotification({ type: 'success', message: `Successfully extracted text from PDF: ${file.name}` });
+          setProgress(50);
+          mammoth.extractRawText({ arrayBuffer: arrayBuffer })
+            .then((result) => {
+              if (cancelRefs.current[type]) return;
+              setProgress(100);
+              handleTextExtracted(result.value);
+              setNotification({ type: 'success', message: `Successfully parsed DOCX: ${file.name}` });
+              setIsLoading(false);
+            })
+            .catch((err) => {
+              if (cancelRefs.current[type]) return;
+              console.error(err);
+              setNotification({ type: 'error', message: "Failed to parse DOCX file." });
+              setIsLoading(false);
+            });
+        };
+        reader.readAsArrayBuffer(file);
+      } else if (fileExtension === "pdf") {
+        try {
+          const formData = new FormData();
+          formData.append('file', file);
+          
+          const response = await axios.post('http://127.0.0.1:8000/api/extract-pdf', formData, {
+            onUploadProgress: (progressEvent) => {
+              const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+              setProgress(progress);
+            }
+          });
+          
+          if (cancelRefs.current[type]) return;
+          
+          handleTextExtracted(response.data.text);
+          setNotification({ type: 'success', message: `Successfully extracted text from PDF (High-Speed): ${file.name}` });
+          setIsLoading(false);
+          setProgress(100);
         } catch (err) {
-          console.error(err);
-          setNotification({ type: 'error', message: "Failed to process PDF file." });
+          if (!cancelRefs.current[type]) {
+            console.error(err);
+            setNotification({ type: 'error', message: "High-speed extraction failed. Check if backend is running." });
+            setIsLoading(false);
+          }
         }
-      };
-      reader.readAsArrayBuffer(file);
+      }
+    } catch (err) {
+      if (!cancelRefs.current[type]) {
+        console.error(err);
+        setIsLoading(false);
+      }
     }
   };
 
-  const handleFileUpload = (e, setTargetText) => {
+  const handleCancelProcessing = (type) => {
+    cancelRefs.current[type] = true;
+    if (type === 'source') {
+      setIsSourceProcessing(false);
+      setSourceProgress(0);
+    } else {
+      setIsSuspectProcessing(false);
+      setSuspectProgress(0);
+    }
+    setNotification({ type: 'info', message: "Processing cancelled." });
+  };
+
+  const handleFileUpload = (e, type) => {
     const file = e.target.files[0];
-    processFile(file, setTargetText);
+    processFile(file, type);
     e.target.value = ""; // Reset
   };
 
-  const handleDrop = (e, setTargetText, setDragActive) => {
+  const handleDrop = (e, type, setDragActive) => {
     e.preventDefault();
     setDragActive(false);
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      processFile(e.dataTransfer.files[0], setTargetText);
+      processFile(e.dataTransfer.files[0], type);
     }
   };
 
-  const handleDrag = (e, setDragActive) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (e.type === "dragenter" || e.type === "dragover") {
-      setDragActive(true);
-    } else if (e.type === "dragleave") {
-      setDragActive(false);
+  const handleModalAction = (action) => {
+    const { text, type } = limitModal;
+    const setTargetText = type === 'source' ? setSourceText : setSuspectText;
+
+    if (action === 'truncate') {
+      const truncated = text.trim().split(/\s+/).slice(0, WORD_LIMIT).join(' ');
+      setTargetText(truncated);
+      setNotification({ type: 'success', message: "Document truncated to 2,500 words." });
+    } else if (action === 'keep') {
+      setTargetText(text);
+      setNotification({ type: 'info', message: "Document loaded. Please delete words to reach the limit." });
     }
+    
+    setLimitModal({ show: false, text: '', type: '', wordCount: 0 });
+  };
+
+  const handleClear = (type) => {
+    const text = type === 'source' ? sourceText : suspectText;
+    const setText = type === 'source' ? setSourceText : setSuspectText;
+
+    if (text.trim().length === 0) {
+      setText('');
+      return;
+    }
+
+    setConfirmModal({ show: true, type });
+  };
+
+  const confirmClear = () => {
+    if (confirmModal.type === 'source') setSourceText('');
+    else setSuspectText('');
+    setConfirmModal({ show: false, type: '' });
+    setNotification({ type: 'success', message: "Document cleared successfully." });
   };
 
   const handleAnalyze = async () => {
@@ -256,7 +368,7 @@ function App() {
       {/* HEADER */}
       <header className="app-header">
         <div className="brand-section">
-          <h1>Rabin-Karp Detector <span className="pdf-badge">PDF Supported</span></h1>
+          <h1>Rabin-Karp Algorithm</h1>
           <p>Cross-Lingual Plagiarism Detection • Tagalog-English Normalization</p>
         </div>
         <button className="theme-toggle" onClick={toggleTheme}>
@@ -270,29 +382,47 @@ function App() {
         {/* SOURCE */}
         <div className="card">
           <div className="card-header">
-            <div>
-              <h3 className="card-title source-title">Source Document (English)</h3>
-              <div className="drag-hint"><UploadIcon /> Drag & Drop or Upload (.txt, .docx, .pdf)</div>
-            </div>
-            <div className="file-input-wrapper">
-              <label className="file-input-label">
-                <UploadIcon /> Upload File
-              </label>
-              <input type="file" accept=".txt,.docx,.pdf" onChange={(e) => handleFileUpload(e, setSourceText)} />
+            <div className="box-header-flex">
+              <h2 className="box-title source">Source Document (English)</h2>
+              <div className="header-actions">
+                <button className="icon-btn clear-action" onClick={() => handleClear('source')} data-tooltip="Clear Document">
+                  <TrashIcon />
+                </button>
+                <div className="file-input-wrapper">
+                  <label className="file-input-label">
+                    <UploadIcon /> Upload File
+                  </label>
+                  <input type="file" accept=".txt,.docx,.pdf" onChange={(e) => handleFileUpload(e, 'source')} />
+                </div>
+              </div>
             </div>
           </div>
           
           <div 
-            className={`drop-zone ${dragActiveSource ? 'dragging' : ''}`}
+            className={`drop-zone ${dragActiveSource ? 'dragging' : ''} ${isSourceProcessing ? 'processing' : ''}`}
             onDragEnter={(e) => handleDrag(e, setDragActiveSource)}
             onDragOver={(e) => handleDrag(e, setDragActiveSource)}
             onDragLeave={(e) => handleDrag(e, setDragActiveSource)}
-            onDrop={(e) => handleDrop(e, setSourceText, setDragActiveSource)}
+            onDrop={(e) => handleDrop(e, 'source', setDragActiveSource)}
           >
-            {dragActiveSource && (
+            {(dragActiveSource || isSourceProcessing) && (
               <div className="drop-overlay">
-                <UploadIcon />
-                <span>Drop Source File Here</span>
+                {isSourceProcessing ? (
+                  <>
+                    <LoaderIcon />
+                    <div className="processing-info">
+                      <span className="processing-text">Extracting: {sourceProgress}%</span>
+                      <button className="cancel-btn" onClick={() => handleCancelProcessing('source')}>
+                        <XIcon /> Cancel
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <UploadIcon />
+                    <span>Drop Source File Here</span>
+                  </>
+                )}
               </div>
             )}
             <textarea
@@ -310,29 +440,47 @@ function App() {
         {/* SUSPECT */}
         <div className="card">
           <div className="card-header">
-            <div>
-              <h3 className="card-title suspect-title">Suspect Document (Taglish)</h3>
-              <div className="drag-hint"><UploadIcon /> Drag & Drop or Upload (.txt, .docx, .pdf)</div>
-            </div>
-            <div className="file-input-wrapper">
-              <label className="file-input-label">
-                <UploadIcon /> Upload File
-              </label>
-              <input type="file" accept=".txt,.docx,.pdf" onChange={(e) => handleFileUpload(e, setSuspectText)} />
+            <div className="box-header-flex">
+              <h2 className="box-title suspect">Suspect Document (Taglish)</h2>
+              <div className="header-actions">
+                <button className="icon-btn clear-action" onClick={() => handleClear('suspect')} data-tooltip="Clear Document">
+                  <TrashIcon />
+                </button>
+                <div className="file-input-wrapper">
+                  <label className="file-input-label">
+                    <UploadIcon /> Upload File
+                  </label>
+                  <input type="file" accept=".txt,.docx,.pdf" onChange={(e) => handleFileUpload(e, 'suspect')} />
+                </div>
+              </div>
             </div>
           </div>
 
           <div 
-            className={`drop-zone ${dragActiveSuspect ? 'dragging' : ''}`}
+            className={`drop-zone ${dragActiveSuspect ? 'dragging' : ''} ${isSuspectProcessing ? 'processing' : ''}`}
             onDragEnter={(e) => handleDrag(e, setDragActiveSuspect)}
             onDragOver={(e) => handleDrag(e, setDragActiveSuspect)}
             onDragLeave={(e) => handleDrag(e, setDragActiveSuspect)}
-            onDrop={(e) => handleDrop(e, setSuspectText, setDragActiveSuspect)}
+            onDrop={(e) => handleDrop(e, 'suspect', setDragActiveSuspect)}
           >
-            {dragActiveSuspect && (
+            {(dragActiveSuspect || isSuspectProcessing) && (
               <div className="drop-overlay">
-                <UploadIcon />
-                <span>Drop Suspect File Here</span>
+                {isSuspectProcessing ? (
+                  <>
+                    <LoaderIcon />
+                    <div className="processing-info">
+                      <span className="processing-text">Extracting: {suspectProgress}%</span>
+                      <button className="cancel-btn" onClick={() => handleCancelProcessing('suspect')}>
+                        <XIcon /> Cancel
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <UploadIcon />
+                    <span>Drop Suspect File Here</span>
+                  </>
+                )}
               </div>
             )}
             <textarea
@@ -503,7 +651,7 @@ function App() {
             <div className="info-content">
               <p>
                 The <strong>yellow highlights</strong> indicate sentences where the system detected a significant amount of text reuse. 
-                Unlike basic detectors, this system uses <strong>Flexible N-gram Matching</strong>:
+                Unlike basic algorithms, this system uses <strong>Flexible N-gram Matching</strong>:
               </p>
               <ul>
                 <li><strong>Bilingual Detection:</strong> It recognizes matches even if English words were translated to Tagalog (e.g., "Student" to "Mag-aaral").</li>
@@ -524,6 +672,54 @@ function App() {
             </div>
             <div className="log-entry suspect">
               <strong>SUSPECT:</strong> {results.normalized_suspect}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* WORD LIMIT MODAL */}
+      {limitModal.show && (
+        <div className="modal-backdrop">
+          <div className="modal-content">
+            <div className="modal-header">
+              <div className="warning-icon">⚠️</div>
+              <h3>Document Limit Exceeded</h3>
+            </div>
+            <div className="modal-body">
+              <p>The uploaded document contains <strong>{limitModal.wordCount.toLocaleString()} words</strong>, which exceeds our <strong>{WORD_LIMIT.toLocaleString()} word limit</strong>.</p>
+              <p>How would you like to proceed?</p>
+            </div>
+            <div className="modal-footer">
+              <button className="modal-btn secondary" onClick={() => handleModalAction('keep')}>
+                Keep All (Manual Edit)
+              </button>
+              <button className="modal-btn primary" onClick={() => handleModalAction('truncate')}>
+                Auto-Truncate (Top 2,500)
+              </button>
+            </div>
+            <button className="modal-close-btn" onClick={() => setLimitModal({ show: false, text: '', type: '', wordCount: 0 })}><XIcon /></button>
+          </div>
+        </div>
+      )}
+
+      {/* CLEAR CONFIRMATION MODAL */}
+      {confirmModal.show && (
+        <div className="modal-backdrop">
+          <div className="modal-content">
+            <div className="modal-header">
+              <div className="warning-icon danger">🗑️</div>
+              <h3>Clear Document?</h3>
+            </div>
+            <div className="modal-body">
+              <p>Are you sure you want to clear this document? This action cannot be undone and all current progress will be lost.</p>
+            </div>
+            <div className="modal-footer">
+              <button className="modal-btn secondary" onClick={() => setConfirmModal({ show: false, type: '' })}>
+                Cancel
+              </button>
+              <button className="modal-btn primary danger" onClick={confirmClear}>
+                Yes, Clear All
+              </button>
             </div>
           </div>
         </div>

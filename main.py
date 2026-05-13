@@ -1,6 +1,8 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+import io
+from pypdf import PdfReader
 
 # Ini-import natin yung algorithm na ginawa natin kanina
 from enhanced_rabinkarp import check_plagiarism
@@ -64,3 +66,23 @@ def analyze_text(request: PlagiarismRequest):
     )
     
     return result
+
+@app.post("/api/extract-pdf")
+async def extract_pdf(file: UploadFile = File(...)):
+    """
+    Higit na mas mabilis kaysa sa client-side extraction.
+    Ginagamit ang pypdf para basahin ang content ng PDF sa memory.
+    """
+    try:
+        content = await file.read()
+        pdf_reader = PdfReader(io.BytesIO(content))
+        text = ""
+        for page in pdf_reader.pages:
+            page_text = page.extract_text()
+            if page_text:
+                text += page_text + "\n"
+        
+        return {"text": text.strip()}
+    except Exception as e:
+        print(f"Extraction error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to extract PDF: {str(e)}")
