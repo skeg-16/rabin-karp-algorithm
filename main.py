@@ -2,26 +2,38 @@ from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import io
+import os
 from pypdf import PdfReader
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
+from starlette.requests import Request
 
 # Ini-import natin yung algorithm na ginawa natin kanina
 from enhanced_rabinkarp import check_plagiarism
 
+# Setup Rate Limiter
+limiter = Limiter(key_func=get_remote_address)
 app = FastAPI(
     title="Enhanced Rabin-Karp API",
     description="Cross-Lingual Plagiarism Detection Backend for Tagalog-English text.",
     version="1.0.0"
 )
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 # ─────────────────────────────────────────────────────────────────────────────
-# CORS CONFIGURATION (Super important for React integration)
+# CORS CONFIGURATION
 # ─────────────────────────────────────────────────────────────────────────────
+# Sa deployment, gagamit tayo ng Environment Variable para sa security.
+ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173").split(",")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # For development. Sa deployment, papalitan natin 'to ng exact URL ng React app mo.
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
-    allow_methods=["*"],  # Allows all HTTP methods (GET, POST, etc.)
-    allow_headers=["*"],  # Allows all headers
+    allow_methods=["GET", "POST"],
+    allow_headers=["*"],
 )
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -37,20 +49,25 @@ class PlagiarismRequest(BaseModel):
 # ─────────────────────────────────────────────────────────────────────────────
 @app.get("/")
 def read_root():
-    return {"message": "Enhanced Rabin-Karp API is running. Go to /docs to test."}
+    return {"status": "online", "message": "Enhanced Rabin-Karp API is secure and running."}
 
 @app.post("/api/analyze")
-def analyze_text(request: PlagiarismRequest):
+@limiter.limit("10/minute")
+def analyze_text(request: Request, body: PlagiarismRequest):
     """
     Tumatanggap ng Source at Suspect text mula sa Frontend,
     pinapadaan sa pre-processing, at ibinabalik ang similarity score.
     """
+    # Security: Strict validation for window_size
+    window_size = body.window_size
+    if not (1 <= window_size <= 10):
+        raise HTTPException(status_code=400, detail="Window size must be between 1 and 10.")
     # ENHANCEMENT: Word Count Limit (SOP Performance)
     # 2.5k words is equivalent to around 8-10 pages of academic text.
     WORD_LIMIT = 2500
     
-    source_words = len(request.source_text.split())
-    suspect_words = len(request.suspect_text.split())
+    source_words = len(body.source_text.split())
+    suspect_words = len(body.suspect_text.split())
     
     if source_words > WORD_LIMIT or suspect_words > WORD_LIMIT:
         raise HTTPException(
@@ -60,15 +77,16 @@ def analyze_text(request: PlagiarismRequest):
         )
 
     result = check_plagiarism(
-        source=request.source_text,
-        suspect=request.suspect_text,
-        window=request.window_size
+        source=body.source_text,
+        suspect=body.suspect_text,
+        window=window_size
     )
     
     return result
 
 @app.post("/api/extract-pdf")
-async def extract_pdf(file: UploadFile = File(...)):
+@limiter.limit("5/minute")
+async def extract_pdf(request: Request, file: UploadFile = File(...)):
     """
     Higit na mas mabilis kaysa sa client-side extraction.
     Ginagamit ang pypdf para basahin ang content ng PDF sa memory.

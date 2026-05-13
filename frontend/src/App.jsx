@@ -44,6 +44,9 @@ const TrashIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
 );
 
+// API Base URL Configuration
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+
 function App() {
   const [sourceText, setSourceText] = useState('');
   const [suspectText, setSuspectText] = useState('');
@@ -178,7 +181,7 @@ function App() {
           const formData = new FormData();
           formData.append('file', file);
           
-          const response = await axios.post('http://127.0.0.1:8000/api/extract-pdf', formData, {
+          const response = await axios.post(`${API_BASE_URL}/api/extract-pdf`, formData, {
             onUploadProgress: (progressEvent) => {
               const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
               setProgress(progress);
@@ -281,7 +284,7 @@ function App() {
 
     setLoading(true);
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/analyze', {
+      const response = await axios.post(`${API_BASE_URL}/api/analyze`, {
         source_text: sourceText,
         suspect_text: suspectText,
         window_size: parseInt(windowSize) || 5
