@@ -101,7 +101,31 @@
     "panahon",
     "tyempo",
     "oras",
-    "period"
+    "period",
+    "piryod",
+    "yugto"
+  ],
+  "classroom": [
+    "silid-aralan",
+    "kwarto",
+    "paaralan",
+    "klasrum",
+    "classroom"
+  ],
+  "school": [
+    "school",
+    "paaralan",
+    "eskwelahan",
+    "iskul",
+    "aralan",
+    "klase",
+    "skul"
+  ],
+  "inside": [
+    "loob",
+    "nasa loob",
+    "insayd",
+    "inside"
   ],
   "development": [
     "development",
@@ -1147,5 +1171,69 @@
   "combination": [
     "combination",
     "kombinasyon"
+  ],
+  "climate change": [
+    "climate change",
+    "pagbabago ng klima",
+    "klima"
+  ],
+  "greenhouse gas": [
+    "greenhouse gas",
+    "gas",
+    "usok"
+  ],
+  "unprecedented": [
+    "unprecedented",
+    "hindi pa nararanasan",
+    "wala pang katulad",
+    "hindi kapani-paniwala"
+  ],
+  "activities": [
+    "aktibidad",
+    "gawain",
+    "activities",
+    "mga gawain"
+  ],
+  "impact": [
+    "epekto",
+    "impluwensya",
+    "impact",
+    "nakakaapekto",
+    "nakaka-apekto"
+  ],
+  "society": [
+    "lipunan",
+    "society",
+    "sambayanan"
+  ],
+  "health": [
+    "kalusugan",
+    "health"
+  ],
+  "disease": [
+    "sakit",
+    "karamdaman",
+    "disease"
+  ],
+  "economy": [
+    "ekonomiya",
+    "economy",
+    "ekonomik"
+  ],
+  "record": [
+    "record",
+    "kasaysayan",
+    "talaan",
+    "naitala"
+  ],
+  "warmest": [
+    "warmest",
+    "pinakamainit",
+    "mainit"
+  ],
+  "human": [
+    "human",
+    "tao",
+    "katauhan"
   ]
 }

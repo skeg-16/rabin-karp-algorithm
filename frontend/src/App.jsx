@@ -44,8 +44,8 @@ const TrashIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
 );
 
-// API Base URL Configuration
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+// API Base URL Configuration (Hardcoded for local testing stability)
+const API_BASE_URL = 'http://127.0.0.1:8000';
 
 function App() {
   const [sourceText, setSourceText] = useState('');
@@ -79,6 +79,14 @@ function App() {
   const [confirmModal, setConfirmModal] = useState({
     show: false,
     type: ''
+  });
+
+  // N-Gram Recommendation Modal State
+  const [recommendModal, setRecommendModal] = useState({
+    show: false,
+    suggestedN: 5,
+    reason: '',
+    minWordsFailed: false
   });
 
   // Ref for auto-scroll
@@ -271,7 +279,7 @@ function App() {
     setNotification({ type: 'success', message: "Document cleared successfully." });
   };
 
-  const handleAnalyze = async () => {
+  const handleAnalyze = async (nToUse) => {
     if (!sourceText || !suspectText) {
       setNotification({ type: 'error', message: "Please provide both Source and Suspect documents." });
       return;
@@ -282,19 +290,70 @@ function App() {
       return;
     }
 
+    // If nToUse is provided, use it, otherwise use the current windowSize state
+    const finalN = nToUse || parseInt(windowSize) || 5;
+    
     setLoading(true);
     try {
       const response = await axios.post(`${API_BASE_URL}/api/analyze`, {
         source_text: sourceText,
         suspect_text: suspectText,
-        window_size: parseInt(windowSize) || 5
+        window_size: finalN
       });
       setResults(response.data);
     } catch (error) {
-      console.error("Error connecting to backend:", error);
+      console.error("Connection Error:", error);
       alert("Failed to connect to the backend. Is your Python server running?");
     }
     setLoading(false);
+  };
+
+  const checkAccuracyAndAnalyze = () => {
+    if (!sourceText || !suspectText) {
+      setNotification({ type: 'error', message: "Please provide both Source and Suspect documents." });
+      return;
+    }
+
+    const sourceWords = getWordCount(sourceText);
+    const suspectWords = getWordCount(suspectText);
+    const currentN = parseInt(windowSize);
+
+    // Logic for Minimum Words (Panel protection)
+    if (sourceWords < 5 || suspectWords < 5) {
+      setRecommendModal({
+        show: true,
+        suggestedN: 2,
+        reason: "The input is too short. For accurate detection of single words or short phrases, a very low N-Gram (1-2) is required, but results may still be inaccurate due to lack of context.",
+        minWordsFailed: true
+      });
+      return;
+    }
+
+    // N-Gram Recommendation Logic
+    let suggestedN = 5;
+    let reason = "";
+    let showModal = false;
+
+    // Check if current N is risky for the document type
+    if (suspectWords <= 20 && currentN > 3) {
+      suggestedN = 2;
+      reason = "You are analyzing a single sentence. A high N-Gram window might miss matches. We suggest using N-Gram 2 for better sensitivity.";
+      showModal = true;
+    } else if (suspectWords > 20 && suspectWords <= 100 && (currentN < 2 || currentN > 5)) {
+      suggestedN = 4;
+      reason = "For short paragraphs, an N-Gram of 4 or 5 is the most balanced for accuracy.";
+      showModal = true;
+    } else if (suspectWords > 100 && currentN < 5) {
+      suggestedN = 7;
+      reason = "For full documents, a higher N-Gram (7-10) is recommended to focus on structural plagiarism and avoid common academic phrases.";
+      showModal = true;
+    }
+
+    if (showModal) {
+      setRecommendModal({ show: true, suggestedN, reason, minWordsFailed: false });
+    } else {
+      handleAnalyze(currentN);
+    }
   };
 
   const getHighlightedHTML = (text, matches) => {
@@ -537,7 +596,7 @@ function App() {
         </div>
         <button 
           className="analyze-button"
-          onClick={handleAnalyze} 
+          onClick={checkAccuracyAndAnalyze} 
           disabled={loading}
         >
           {loading ? "Analyzing..." : <><ZapIcon /> Run Analysis</>}
@@ -723,6 +782,50 @@ function App() {
               <button className="modal-btn primary danger" onClick={confirmClear}>
                 Yes, Clear All
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* ACCURACY RECOMMENDATION MODAL */}
+      {recommendModal.show && (
+        <div className="modal-backdrop">
+          <div className="modal-content">
+            <div className="modal-header">
+              <div className={`warning-icon ${recommendModal.minWordsFailed ? 'danger' : ''}`}>
+                {recommendModal.minWordsFailed ? '🚫' : '💡'}
+              </div>
+              <h3>{recommendModal.minWordsFailed ? 'Input Too Short' : 'Accuracy Tip'}</h3>
+            </div>
+            <div className="modal-body">
+              <p>{recommendModal.reason}</p>
+              {!recommendModal.minWordsFailed && (
+                <p>Would you like to auto-adjust to <strong>N-Gram {recommendModal.suggestedN}</strong> for better results?</p>
+              )}
+            </div>
+            <div className="modal-footer">
+              {!recommendModal.minWordsFailed ? (
+                <>
+                  <button className="modal-btn secondary" onClick={() => {
+                    setRecommendModal({ ...recommendModal, show: false });
+                    handleAnalyze();
+                  }}>
+                    Continue with current ({windowSize})
+                  </button>
+                  <button className="modal-btn primary" onClick={() => {
+                    const suggested = recommendModal.suggestedN;
+                    setWindowSize(suggested.toString());
+                    setRecommendModal({ ...recommendModal, show: false });
+                    // Explicitly pass the suggested N to skip state delay
+                    handleAnalyze(suggested);
+                  }}>
+                    Use Suggested ({recommendModal.suggestedN})
+                  </button>
+                </>
+              ) : (
+                <button className="modal-btn primary danger" onClick={() => setRecommendModal({ ...recommendModal, show: false })}>
+                  I will add more text
+                </button>
+              )}
             </div>
           </div>
         </div>

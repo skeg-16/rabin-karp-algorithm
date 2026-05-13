@@ -25,12 +25,10 @@ app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 # ─────────────────────────────────────────────────────────────────────────────
 # CORS CONFIGURATION
 # ─────────────────────────────────────────────────────────────────────────────
-# Sa deployment, gagamit tayo ng Environment Variable para sa security.
-ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173").split(",")
-
+# Sa deployment, papalitan natin 'to ng exact URL.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=ALLOWED_ORIGINS,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
@@ -51,8 +49,8 @@ class PlagiarismRequest(BaseModel):
 def read_root():
     return {"status": "online", "message": "Enhanced Rabin-Karp API is secure and running."}
 
+# @limiter.limit("10/minute")
 @app.post("/api/analyze")
-@limiter.limit("10/minute")
 def analyze_text(request: Request, body: PlagiarismRequest):
     """
     Tumatanggap ng Source at Suspect text mula sa Frontend,
@@ -84,8 +82,8 @@ def analyze_text(request: Request, body: PlagiarismRequest):
     
     return result
 
+# @limiter.limit("5/minute")
 @app.post("/api/extract-pdf")
-@limiter.limit("5/minute")
 async def extract_pdf(request: Request, file: UploadFile = File(...)):
     """
     Higit na mas mabilis kaysa sa client-side extraction.
