@@ -30,16 +30,17 @@ loaded_stopwords = load_json_file("stopwords.json")
 FILIPINO_STOP_WORDS = set()
 if loaded_stopwords:
     if isinstance(loaded_stopwords, dict):
-        # Flatten keys and all lists of synonyms into a single set
         for key, values in loaded_stopwords.items():
-            FILIPINO_STOP_WORDS.add(key.lower())
+            # Add the key itself (English word)
+            FILIPINO_STOP_WORDS.add(key.lower().strip())
+            # Add all synonyms (Tagalog words)
             if isinstance(values, list):
-                FILIPINO_STOP_WORDS.update(v.lower() for v in values)
+                for v in values:
+                    FILIPINO_STOP_WORDS.add(v.lower().strip())
             else:
-                FILIPINO_STOP_WORDS.add(values.lower())
+                FILIPINO_STOP_WORDS.add(values.lower().strip())
     else:
-        # Fallback for old list format
-        FILIPINO_STOP_WORDS = set(w.lower() for w in loaded_stopwords)
+        FILIPINO_STOP_WORDS = set(w.lower().strip() for w in loaded_stopwords)
 
 # Load and Invert Dictionary (solves SOP #1: Semantic Blindness)
 # ENHANCEMENT 1: Many-to-One Synonym Mapping
