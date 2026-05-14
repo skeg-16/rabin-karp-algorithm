@@ -45,8 +45,7 @@ const TrashIcon = () => (
 );
 
 // API Base URL Configuration (Hardcoded for local testing stability)
-const API_BASE_URL = 'http://127.0.0.1:8000';
-
+const API_BASE_URL = '';
 function App() {
   const [sourceText, setSourceText] = useState('');
   const [suspectText, setSuspectText] = useState('');
