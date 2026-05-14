@@ -118,14 +118,14 @@
     "eskwelahan",
     "iskul",
     "aralan",
-    "klase",
-    "skul"
+    "klase"
   ],
   "inside": [
-    "loob",
-    "nasa loob",
     "insayd",
-    "inside"
+    "loob",
+    "ilalim",
+    "inside",
+    "nasa loob"
   ],
   "development": [
     "development",
@@ -243,11 +243,8 @@
   ],
   "society": [
     "lipunan",
-    "sosyedad",
     "society",
-    "lipunang",
-    "bayan",
-    "komunidad"
+    "sambayanan"
   ],
   "meaning": [
     "kahulugan",
@@ -279,14 +276,6 @@
     "pook",
     "lokasyon",
     "place"
-  ],
-  "school": [
-    "school",
-    "paaralan",
-    "eskwelahan",
-    "iskul",
-    "aralan",
-    "klase"
   ],
   "art": [
     "art",
@@ -678,12 +667,8 @@
     "rekognisyon"
   ],
   "health": [
-    "health",
     "kalusugan",
-    "katawan",
-    "sigla",
-    "lakas",
-    "helt"
+    "health"
   ],
   "pandemic": [
     "pandemya",
@@ -803,10 +788,8 @@
   ],
   "economy": [
     "ekonomiya",
-    "kabuhayan",
-    "pananalapi",
-    "kalakalan",
-    "ekonomiks"
+    "economy",
+    "ekonomik"
   ],
   "discourse": [
     "diskurso",
@@ -1194,30 +1177,19 @@
     "mga gawain"
   ],
   "impact": [
+    "nakaka-apekto",
+    "nakakaapekto",
     "epekto",
     "impluwensya",
     "impact",
-    "nakakaapekto",
-    "nakaka-apekto"
-  ],
-  "society": [
-    "lipunan",
-    "society",
-    "sambayanan"
-  ],
-  "health": [
-    "kalusugan",
-    "health"
+    "impak"
   ],
   "disease": [
+    "virus",
+    "disis",
     "sakit",
-    "karamdaman",
-    "disease"
-  ],
-  "economy": [
-    "ekonomiya",
-    "economy",
-    "ekonomik"
+    "disease",
+    "karamdaman"
   ],
   "record": [
     "record",
@@ -1234,5 +1206,2090 @@
     "human",
     "tao",
     "katauhan"
+  ],
+  "country": [
+    "bansa",
+    "nasyon",
+    "kantri",
+    "bayan",
+    "bansang",
+    "republika"
+  ],
+  "became": [
+    "naging"
+  ],
+  "usage": [
+    "paggamit",
+    "gamit",
+    "yuseyds"
+  ],
+  "become": [
+    "maging",
+    "magiging",
+    "nagiging"
+  ],
+  "person": [
+    "tao",
+    "indibidwal",
+    "person"
+  ],
+  "part": [
+    "bahaging",
+    "parte",
+    "seksyon",
+    "piraso",
+    "pangkat"
+  ],
+  "based": [
+    "batay",
+    "base",
+    "ayon",
+    "based",
+    "nakabase",
+    "hango",
+    "beysd",
+    "nakabatay",
+    "nakasalalay",
+    "naka-base"
+  ],
+  "level": [
+    "antas",
+    "lebel",
+    "level"
+  ],
+  "word": [
+    "salita",
+    "word",
+    "kataga",
+    "salitang"
+  ],
+  "online": [
+    "online",
+    "onlayn",
+    "internet"
+  ],
+  "using": [
+    "gamit",
+    "paggamit",
+    "yus",
+    "using",
+    "sa",
+    "pamamagitan",
+    "yusing",
+    "gumagamit",
+    "nagamit",
+    "nagsasagawa",
+    "kumokonsumo",
+    "yuser"
+  ],
+  "lot": [
+    "lot"
+  ],
+  "volume": [
+    "volume",
+    "bolyum",
+    "vol",
+    "tomo"
+  ],
+  "ateneo": [
+    "ateneo"
+  ],
+  "katipunan": [
+    "katipunan"
+  ],
+  "index": [
+    "index",
+    "indeks"
+  ],
+  "primary": [
+    "pangunahing",
+    "pangunahi",
+    "main",
+    "basic",
+    "basiko"
+  ],
+  "city": [
+    "city",
+    "lungsod",
+    "siyudad"
+  ],
+  "effect": [
+    "epekto",
+    "impluwensya",
+    "bunga",
+    "effect",
+    "bisa",
+    "lakas",
+    "pwersa",
+    "epektibnes",
+    "impact",
+    "impak",
+    "implikasyon"
+  ],
+  "paper": [
+    "papel",
+    "dokumento",
+    "paper",
+    "pahina",
+    "peyper"
+  ],
+  "task": [
+    "gawain",
+    "aktibidad",
+    "task",
+    "trabaho",
+    "gawaing"
+  ],
+  "perspective": [
+    "pananaw",
+    "paningin",
+    "perspektiba",
+    "perspective"
+  ],
+  "use": [
+    "ginamit",
+    "ginagamit",
+    "gamit",
+    "paggamit",
+    "gumamit",
+    "gamitin",
+    "yus"
+  ],
+  "visible": [
+    "makikita",
+    "nakikita",
+    "matatagpuan"
+  ],
+  "table": [
+    "talahanayan",
+    "teybol",
+    "table",
+    "lamesa",
+    "hapag"
+  ],
+  "example": [
+    "halimbawa",
+    "ehemplo",
+    "example"
+  ],
+  "los": [
+    "los"
+  ],
+  "issue": [
+    "issue",
+    "isyu",
+    "usapin",
+    "problema",
+    "isyung"
+  ],
+  "national": [
+    "national",
+    "pambansa",
+    "nasyonal",
+    "pambansang",
+    "pambayan",
+    "panlahat"
+  ],
+  "essay": [
+    "sanaysay",
+    "artikulo",
+    "essay"
+  ],
+  "creation": [
+    "pagbuo",
+    "paggawa",
+    "pormasyon",
+    "paglikha",
+    "pag-imbento",
+    "pag-create"
+  ],
+  "review": [
+    "review",
+    "rebyu",
+    "pagsusuri"
+  ],
+  "type": [
+    "uri",
+    "klase",
+    "tipo",
+    "type"
+  ],
+  "reyes": [
+    "reyes"
+  ],
+  "new": [
+    "bagong",
+    "bago",
+    "nyu",
+    "new"
+  ],
+  "included": [
+    "kabilang",
+    "kasama",
+    "nakapaloob",
+    "nasa",
+    "laman"
+  ],
+  "important": [
+    "mahalagang",
+    "mahalaga",
+    "importante",
+    "makabuluhan",
+    "mahahalagang",
+    "seryoso",
+    "signipikant"
+  ],
+  "connection": [
+    "ugnayan",
+    "kaugnay",
+    "koneksyon",
+    "relasyon"
+  ],
+  "related": [
+    "kaugnay",
+    "konektado",
+    "relasyon"
+  ],
+  "result": [
+    "resulta",
+    "kinalabasan",
+    "bunga",
+    "result"
+  ],
+  "high": [
+    "mataas",
+    "matayog",
+    "high"
+  ],
+  "inc": [
+    "inc"
+  ],
+  "self": [
+    "sarili",
+    "pansarili"
+  ],
+  "current": [
+    "kasalukuyang",
+    "kasalukuyan",
+    "ngayon"
+  ],
+  "process": [
+    "proseso",
+    "hakbang",
+    "daloy",
+    "process"
+  ],
+  "corner": [
+    "corner",
+    "kanto",
+    "sulok"
+  ],
+  "personal": [
+    "personal",
+    "pansarili",
+    "pribado"
+  ],
+  "year": [
+    "taong",
+    "taon",
+    "year"
+  ],
+  "value": [
+    "pagpapahalaga",
+    "halaga",
+    "value",
+    "importansya"
+  ],
+  "thing": [
+    "bagay",
+    "gamit",
+    "object"
+  ],
+  "time": [
+    "oras",
+    "panahon",
+    "time",
+    "panahong",
+    "petsa",
+    "dekada",
+    "tyempo"
+  ],
+  "said": [
+    "nasabing",
+    "sinabing",
+    "sed",
+    "winika",
+    "binanggit",
+    "inihayag",
+    "naturang",
+    "nabanggit"
+  ],
+  "indeed": [
+    "nga"
+  ],
+  "retrieved": [
+    "kinuha",
+    "nakuha",
+    "retrieved"
+  ],
+  "towards": [
+    "tungo",
+    "papunta",
+    "patungo",
+    "diretso",
+    "tword"
+  ],
+  "challenge": [
+    "hamon",
+    "pagsubok",
+    "tsalends",
+    "tsalenges"
+  ],
+  "importance": [
+    "kahalagahan",
+    "importansya",
+    "halaga"
+  ],
+  "digital": [
+    "digital",
+    "dihital"
+  ],
+  "continuous": [
+    "patuloy",
+    "tuloy-tuloy",
+    "tuloy"
+  ],
+  "quezon": [
+    "quezon"
+  ],
+  "particular": [
+    "partikular",
+    "tiyak",
+    "partikularmente"
+  ],
+  "standard": [
+    "pamantayan",
+    "batayan",
+    "standard",
+    "pamantayang",
+    "sukatan",
+    "panuntunan",
+    "istandard"
+  ],
+  "topic": [
+    "paksa",
+    "tema",
+    "topik"
+  ],
+  "reason": [
+    "dahilan",
+    "rason",
+    "sanhi"
+  ],
+  "salle": [
+    "salle",
+    "la salle"
+  ],
+  "day": [
+    "araw",
+    "petsa"
+  ],
+  "mean": [
+    "mean",
+    "average",
+    "gitna"
+  ],
+  "awareness": [
+    "kamalayan",
+    "malay",
+    "unawa",
+    "pagkaalam",
+    "awernes"
+  ],
+  "work": [
+    "trabaho",
+    "hanapbuhay",
+    "work",
+    "gawa",
+    "likha",
+    "produkto",
+    "werk"
+  ],
+  "content": [
+    "content",
+    "nilalaman",
+    "laman",
+    "pangnilalaman",
+    "sustansya",
+    "kahulugan",
+    "buod",
+    "kontent"
+  ],
+  "big": [
+    "malaking",
+    "malaki",
+    "dambuhala",
+    "big"
+  ],
+  "need": [
+    "pangangailangan",
+    "kailangan",
+    "kailangang",
+    "nid",
+    "dapat",
+    "humihingi",
+    "umaasa",
+    "nidi"
+  ],
+  "understanding": [
+    "unawa",
+    "pag-unawa",
+    "intindi"
+  ],
+  "field": [
+    "larangan",
+    "field",
+    "aspeto"
+  ],
+  "gives": [
+    "nagbibigay",
+    "naglalaan",
+    "bigay"
+  ],
+  "problem": [
+    "suliranin",
+    "problema",
+    "isyu",
+    "suliraning",
+    "hamon",
+    "pagsubok",
+    "balakid"
+  ],
+  "clear": [
+    "malinaw",
+    "klaro",
+    "klir"
+  ],
+  "grade": [
+    "grade",
+    "marka",
+    "greyd",
+    "baitang",
+    "grado",
+    "markahan",
+    "kwarter",
+    "iskoran"
+  ],
+  "local": [
+    "lokal",
+    "pampook",
+    "lokasyon"
+  ],
+  "meeting": [
+    "salubong",
+    "pagsalubong"
+  ],
+  "press": [
+    "press",
+    "palimbagan",
+    "pres"
+  ],
+  "whole": [
+    "buong",
+    "buo",
+    "kabuuan"
+  ],
+  "characteristic": [
+    "katangian",
+    "deskripsyon"
+  ],
+  "rizal": [
+    "rizal"
+  ],
+  "lack": [
+    "kakulangan",
+    "kulang",
+    "kakapusan"
+  ],
+  "mentioned": [
+    "nabanggit",
+    "nasabi",
+    "tinukoy",
+    "binanggit"
+  ],
+  "completely": [
+    "lubos",
+    "masyado",
+    "sobra"
+  ],
+  "airport": [
+    "paliparan",
+    "erport"
+  ],
+  "orderly": [
+    "maayos",
+    "organisado",
+    "ayos"
+  ],
+  "making": [
+    "paggawa",
+    "pagbuo",
+    "gawa"
+  ],
+  "form": [
+    "anyo",
+    "porma",
+    "hugis"
+  ],
+  "image": [
+    "imahen",
+    "imahe",
+    "larawan",
+    "imeyds"
+  ],
+  "giving": [
+    "pagbibigay",
+    "pag-aabot",
+    "bigay"
+  ],
+  "lots": [
+    "lots"
+  ],
+  "enough": [
+    "sapat",
+    "husto",
+    "inaf"
+  ],
+  "showing": [
+    "nagpapakita",
+    "nagpapamalas",
+    "pakita",
+    "ipinapakita",
+    "nilalahad",
+    "ibinubunyag",
+    "pinapahiwatig",
+    "dinidispley"
+  ],
+  "want": [
+    "nais",
+    "gusto",
+    "ibig",
+    "mahal",
+    "pagnanasa"
+  ],
+  "mixed": [
+    "mixed",
+    "halo",
+    "magkahalo"
+  ],
+  "saleable": [
+    "saleable",
+    "mabenta"
+  ],
+  "addition": [
+    "dagdag",
+    "karagdagan",
+    "adisyon"
+  ],
+  "response": [
+    "tugon",
+    "sagot",
+    "response",
+    "pagtugon",
+    "pagsagot",
+    "aksyon",
+    "pagharap",
+    "respons"
+  ],
+  "tagalog": [
+    "tagalog"
+  ],
+  "wide": [
+    "malawak",
+    "malapad",
+    "saklaw"
+  ],
+  "chosen": [
+    "piling",
+    "pinili",
+    "hirang"
+  ],
+  "finish": [
+    "matapos",
+    "tapusin",
+    "tapos"
+  ],
+  "step": [
+    "hakbang",
+    "proseso",
+    "step"
+  ],
+  "state": [
+    "state",
+    "estado",
+    "kalagayan",
+    "sitwasyon",
+    "bansa",
+    "istatus"
+  ],
+  "execution": [
+    "pagsasagawa",
+    "paggawa",
+    "implementasyon"
+  ],
+  "factor": [
+    "salik",
+    "dahilan",
+    "factor",
+    "elemento",
+    "bahagi",
+    "paktor"
+  ],
+  "normal": [
+    "normal",
+    "karaniwan"
+  ],
+  "true": [
+    "tunay",
+    "totoo",
+    "true"
+  ],
+  "focused": [
+    "nakatuon",
+    "nakapokus",
+    "pokus"
+  ],
+  "basic": [
+    "basic",
+    "basiko",
+    "pangunahin"
+  ],
+  "december": [
+    "disyembre",
+    "december",
+    "buwan",
+    "petsa",
+    "disyember"
+  ],
+  "diliman": [
+    "diliman"
+  ],
+  "identity": [
+    "identidad",
+    "pagkakakilanlan"
+  ],
+  "conducted": [
+    "isinagawang",
+    "ginawa",
+    "tinapos",
+    "nilikha",
+    "kondukted"
+  ],
+  "performance": [
+    "pagtatanghal",
+    "palabas",
+    "programa",
+    "dula",
+    "perpo"
+  ],
+  "pasma": [
+    "pasma"
+  ],
+  "quality": [
+    "kalidad",
+    "uri",
+    "quality"
+  ],
+  "letter": [
+    "titik",
+    "letra"
+  ],
+  "news": [
+    "news",
+    "balita"
+  ],
+  "dlsu": [
+    "dlsu",
+    "de la salle"
+  ],
+  "emphasis": [
+    "diin",
+    "empasis"
+  ],
+  "positive": [
+    "positibong",
+    "positibo"
+  ],
+  "published": [
+    "published",
+    "inilathala"
+  ],
+  "way": [
+    "daan",
+    "paraan",
+    "kalsada"
+  ],
+  "individual": [
+    "indibidwal",
+    "tao",
+    "individual"
+  ],
+  "juan": [
+    "juan"
+  ],
+  "cause": [
+    "dulot",
+    "sanhi",
+    "dahilan",
+    "rason",
+    "puno",
+    "pinagmulan"
+  ],
+  "accepted": [
+    "tinanggap",
+    "inako"
+  ],
+  "fellow": [
+    "kapwa",
+    "kapareho"
+  ],
+  "number": [
+    "blg",
+    "bilang"
+  ],
+  "june": [
+    "june",
+    "hunyo"
+  ],
+  "event": [
+    "pangyayari",
+    "insidente"
+  ],
+  "th": [
+    "ika-",
+    "pang-"
+  ],
+  "common": [
+    "karaniwang",
+    "karaniwan",
+    "normal"
+  ],
+  "ancient": [
+    "sinaunang",
+    "luma",
+    "ancient"
+  ],
+  "message": [
+    "mensahe",
+    "message"
+  ],
+  "wvsu": [
+    "wvsu"
+  ],
+  "jstor": [
+    "jstor"
+  ],
+  "picture": [
+    "larawan",
+    "imahe"
+  ],
+  "possible": [
+    "posibleng",
+    "maaari"
+  ],
+  "refers": [
+    "tumutukoy",
+    "nagpapahiwatig",
+    "nangangahulugan",
+    "nagsasabi",
+    "naglalarawan"
+  ],
+  "interest": [
+    "interes",
+    "hilig",
+    "gusto",
+    "nais",
+    "pagnanasa"
+  ],
+  "stable": [
+    "stable",
+    "matatag",
+    "pirmihan",
+    "panatag",
+    "matibay"
+  ],
+  "significant": [
+    "significant",
+    "mahalaga",
+    "makabuluhan",
+    "importante",
+    "signipikant",
+    "matinding"
+  ],
+  "materials": [
+    "materials",
+    "materyales",
+    "kagamitan",
+    "sangkap",
+    "materyals"
+  ],
+  "group": [
+    "group",
+    "grupo",
+    "pangkat",
+    "samahan",
+    "grup",
+    "pulutong",
+    "sirkulo"
+  ],
+  "specific": [
+    "tiyak",
+    "sigurado",
+    "tumpak",
+    "klaro",
+    "ispesipiko"
+  ],
+  "model": [
+    "modelo",
+    "huwaran",
+    "ehemplo",
+    "tularan",
+    "model"
+  ],
+  "respondent": [
+    "respondente",
+    "sumagot",
+    "kalahok",
+    "kasali",
+    "respondent"
+  ],
+  "unfolding": [
+    "pagtitiklad",
+    "pagbubukas",
+    "paglalatag",
+    "pagpapakita",
+    "pag-usisa"
+  ],
+  "ability": [
+    "kakayahang",
+    "galing",
+    "talento",
+    "abilidad",
+    "kapasidad"
+  ],
+  "graduated": [
+    "nagsipagtapos",
+    "nagtapos",
+    "naggradweyt",
+    "nakatapos",
+    "nakapasa"
+  ],
+  "reference": [
+    "sanggunian",
+    "reperensya",
+    "batayan",
+    "pinagkunan",
+    "sors"
+  ],
+  "complete": [
+    "ganap",
+    "buo",
+    "lubos",
+    "kumpleto",
+    "perpekto"
+  ],
+  "serving": [
+    "nagsisilbing",
+    "gumaganap",
+    "nagiging",
+    "tumatayong",
+    "umaakto"
+  ],
+  "understand": [
+    "maunawaan",
+    "maintindihan",
+    "malaman",
+    "matutunan",
+    "magets"
+  ],
+  "correct": [
+    "wastong",
+    "tama",
+    "tumpak",
+    "angkop",
+    "nararapat"
+  ],
+  "open": [
+    "open",
+    "bukas",
+    "lantad",
+    "malaya",
+    "openg"
+  ],
+  "page": [
+    "pahina",
+    "dahon",
+    "bahagi",
+    "mukha",
+    "peyj"
+  ],
+  "discovered": [
+    "natuklasan",
+    "nalaman",
+    "nahanap",
+    "nadiskubre",
+    "nakita"
+  ],
+  "modern": [
+    "makabagong",
+    "bago",
+    "moderno",
+    "sariwa",
+    "napapanahon"
+  ],
+  "say": [
+    "sabihin",
+    "banggitin",
+    "ibigkas",
+    "ipahayag",
+    "wika"
+  ],
+  "majority": [
+    "karamihan",
+    "kadalasan",
+    "marami",
+    "nakararami",
+    "mayorya"
+  ],
+  "attention": [
+    "pansin",
+    "atensyon",
+    "puna",
+    "pag-aalaga",
+    "tingin"
+  ],
+  "required": [
+    "kinakailangan",
+    "kailangan",
+    "nararapat",
+    "dapat",
+    "rekwayrment"
+  ],
+  "meaningful": [
+    "makabuluhang",
+    "mahalaga",
+    "makatuturan",
+    "importante",
+    "signipikant"
+  ],
+  "right": [
+    "tamang",
+    "wasto",
+    "tumpak",
+    "angkop",
+    "nararapat"
+  ],
+  "physical": [
+    "pisikal",
+    "katawan",
+    "panlabas",
+    "materyal"
+  ],
+  "stage": [
+    "yugto",
+    "bahagi",
+    "kabanata",
+    "panahon",
+    "lebel"
+  ],
+  "print": [
+    "print",
+    "limbag",
+    "kopya",
+    "imprenta"
+  ],
+  "mine": [
+    "akin",
+    "ko",
+    "sarili",
+    "pag-aari",
+    "mayn"
+  ],
+  "improving": [
+    "pagpapaunlad",
+    "pagpapabuti",
+    "pagpapalago",
+    "pagpapaganda",
+    "debelopment"
+  ],
+  "cross": [
+    "cruz",
+    "krus",
+    "apelyido",
+    "krusipikso"
+  ],
+  "resurrection": [
+    "pagkabuhay",
+    "muling-pagbangon",
+    "pag-asa",
+    "paggising",
+    "resureksyon"
+  ],
+  "power": [
+    "kapangyarihan",
+    "lakas",
+    "pwersa",
+    "awtoridad",
+    "paway"
+  ],
+  "sustainable": [
+    "sustainable",
+    "napapanatili",
+    "matatag",
+    "nagpapatuloy",
+    "sasteynabol"
+  ],
+  "youtube": [
+    "youtube",
+    "bidyo",
+    "panoorin",
+    "platform",
+    "yutub"
+  ],
+  "active": [
+    "aktibong",
+    "masigla",
+    "gumagalaw",
+    "mabilis",
+    "aktib"
+  ],
+  "former": [
+    "dating",
+    "nakaraan",
+    "luma",
+    "dati",
+    "pormer"
+  ],
+  "easy": [
+    "madaling",
+    "mabilis",
+    "simple",
+    "payak",
+    "i-si"
+  ],
+  "sake": [
+    "alang",
+    "dahil",
+    "para",
+    "alang-alang",
+    "rason"
+  ],
+  "hall": [
+    "bulwagang",
+    "kwarto",
+    "pasilyo",
+    "tanggapan",
+    "hall"
+  ],
+  "tracer": [
+    "tracer",
+    "tagasubaybay",
+    "hanapin",
+    "pagsusuri",
+    "treyser"
+  ],
+  "know": [
+    "alam",
+    "batid",
+    "kilala",
+    "naiintindihan",
+    "nadiskubre"
+  ],
+  "will use": [
+    "gagamitin",
+    "uubusin",
+    "isasagawa",
+    "ipapatupad",
+    "yuz"
+  ],
+  "acceptance": [
+    "pagtanggap",
+    "pagkuha",
+    "pag-ako",
+    "pag-ayon",
+    "akseptans"
+  ],
+  "outside": [
+    "labas",
+    "luwas",
+    "panlabas",
+    "awtsayd",
+    "isyu"
+  ],
+  "general": [
+    "pangkalahatang",
+    "buo",
+    "panlahat",
+    "karaniwan",
+    "dyeneral",
+    "general",
+    "heneral"
+  ],
+  "code": [
+    "code",
+    "kodigo",
+    "batas",
+    "panuntunan",
+    "kowd"
+  ],
+  "consisting": [
+    "binubuo",
+    "nilalaman",
+    "sakop",
+    "gawa",
+    "ginagawa"
+  ],
+  "senior": [
+    "senior",
+    "nakatatanda",
+    "matanda",
+    "pinuno",
+    "sinyor"
+  ],
+  "core": [
+    "core",
+    "gitna",
+    "sentro",
+    "puso",
+    "kor"
+  ],
+  "called": [
+    "tinatawag",
+    "binabanggit",
+    "kinikilala",
+    "pinapangalanan",
+    "tawag"
+  ],
+  "solution": [
+    "solusyon",
+    "lunas",
+    "sagot",
+    "kalutasan"
+  ],
+  "seems": [
+    "tila",
+    "parang",
+    "mukhang",
+    "wari",
+    "yata",
+    "animo"
+  ],
+  "jose": [
+    "jose",
+    "pangalan",
+    "pepe",
+    "hose"
+  ],
+  "master": [
+    "master",
+    "guro",
+    "amo",
+    "dalubhasa"
+  ],
+  "scholar": [
+    "iskolar",
+    "mag-aaral",
+    "matalino",
+    "estudyante"
+  ],
+  "frequency": [
+    "frequency",
+    "dalas",
+    "bilang",
+    "paulit-ulit",
+    "prikwensi"
+  ],
+  "situation": [
+    "sitwasyon",
+    "kalagayan",
+    "estado",
+    "pangyayari"
+  ],
+  "analyzed": [
+    "nasusuri",
+    "na-oobserbahan",
+    "natitingnan",
+    "natitimbang",
+    "naaanalisa",
+    "sinuri",
+    "tinignan",
+    "binusisi",
+    "inaral",
+    "tsinek"
+  ],
+  "support": [
+    "suporta",
+    "tulong",
+    "saklolo",
+    "alalay",
+    "suport"
+  ],
+  "order": [
+    "order",
+    "utos",
+    "ayos",
+    "bili"
+  ],
+  "considered": [
+    "itinuturing",
+    "kinikilala",
+    "pinalalagay",
+    "tinitingnan",
+    "konsider",
+    "maituturing",
+    "masasabi",
+    "makikilala",
+    "maipapalagay"
+  ],
+  "saw": [
+    "nakita",
+    "nahanap",
+    "natagpuan",
+    "napansin",
+    "nasilayan"
+  ],
+  "showed": [
+    "ipinakita",
+    "nilahad",
+    "inilantad",
+    "isinawalat",
+    "prinisent"
+  ],
+  "member": [
+    "kasapi",
+    "miyembro",
+    "tauhan",
+    "kabilang",
+    "myembro"
+  ],
+  "american": [
+    "amerikano",
+    "dayuhan",
+    "kano",
+    "mamamayan"
+  ],
+  "product": [
+    "produkto",
+    "paninda",
+    "gawa",
+    "resulta",
+    "prodak"
+  ],
+  "editor": [
+    "editor",
+    "tagasuri",
+    "patnugot",
+    "manunulat"
+  ],
+  "critical": [
+    "kritikal",
+    "mabusisi",
+    "mapanuri",
+    "delikado"
+  ],
+  "test": [
+    "test",
+    "pagsubok",
+    "pagsusulit",
+    "eksamen"
+  ],
+  "effective": [
+    "epektibong",
+    "mabisa",
+    "malakas",
+    "maganda",
+    "epektib",
+    "epektibo"
+  ],
+  "case": [
+    "kaso",
+    "usapin",
+    "asunto",
+    "problema",
+    "keys"
+  ],
+  "assessment": [
+    "pagtataya",
+    "pagsusuri",
+    "pagtimbang",
+    "paghula",
+    "pag-e-evaluate"
+  ],
+  "challenges": [
+    "challenges",
+    "hamon",
+    "pagsubok",
+    "problema",
+    "tsalenges"
+  ],
+  "success": [
+    "tagumpay",
+    "panalo",
+    "wagi",
+    "panaguri",
+    "sakses"
+  ],
+  "needing": [
+    "nangangailangan",
+    "humihingi",
+    "kailangan",
+    "umaasa",
+    "nidi"
+  ],
+  "august": [
+    "august",
+    "agosto",
+    "buwan",
+    "otso",
+    "ogost"
+  ],
+  "xiii": [
+    "xiii",
+    "labintatlo",
+    "trese",
+    "numero"
+  ],
+  "changes": [
+    "pagbabagong",
+    "pag-iiba",
+    "paglipat",
+    "pagsasaayos",
+    "tseng"
+  ],
+  "feeling": [
+    "damdamin",
+    "emosyon",
+    "puso",
+    "nararamdaman",
+    "pilings"
+  ],
+  "inspiration": [
+    "inspirasyon",
+    "idolo",
+    "lakas",
+    "motibasyon",
+    "inspi"
+  ],
+  "stakeholders": [
+    "stakeholders",
+    "kasama",
+    "kasosyo",
+    "kasali",
+    "istykeyholders"
+  ],
+  "answer": [
+    "sagot",
+    "tugon",
+    "solusyon",
+    "reaksyon",
+    "anser"
+  ],
+  "existing": [
+    "umiiral",
+    "nangyayari",
+    "lumilitaw",
+    "nagaganap",
+    "nag-eexist"
+  ],
+  "excellent": [
+    "mahusay",
+    "magaling",
+    "matalino",
+    "bihasa",
+    "ekselent"
+  ],
+  "license": [
+    "license",
+    "lisensya",
+    "permiso",
+    "pahintulot",
+    "laysens"
+  ],
+  "commission": [
+    "commission",
+    "komisyon",
+    "lupon",
+    "komite"
+  ],
+  "excellence": [
+    "kahusayan",
+    "galing",
+    "talento",
+    "dunong",
+    "yekspertis"
+  ],
+  "expression": [
+    "pagpapahayag",
+    "pagsasabi",
+    "pagpapakita",
+    "paglalahad",
+    "pag-ekspress"
+  ],
+  "element": [
+    "elemento",
+    "sangkap",
+    "bahagi",
+    "pwersa"
+  ],
+  "repository": [
+    "repository",
+    "lalagyan",
+    "taguan",
+    "imbakan",
+    "repositoryo",
+    "animorepository",
+    "repositori"
+  ],
+  "obstacle": [
+    "hadlang",
+    "balakid",
+    "harang",
+    "sagabal",
+    "bara",
+    "obstakel"
+  ],
+  "identify": [
+    "matukoy",
+    "malaman",
+    "mahanap",
+    "makita",
+    "ma-identify"
+  ],
+  "planning": [
+    "planning",
+    "pagpaplano",
+    "pag-iisip",
+    "paghahanda",
+    "pluning"
+  ],
+  "struggling": [
+    "nahihirapan",
+    "nagdurusa",
+    "napapagod",
+    "nalilito",
+    "istruggling"
+  ],
+  "absence": [
+    "kawalan",
+    "kakulangan",
+    "pagkawala",
+    "wala",
+    "abis"
+  ],
+  "seeing": [
+    "nakikita",
+    "napapansin",
+    "napanonood",
+    "nasisilayan",
+    "sining"
+  ],
+  "reader": [
+    "mambabasa",
+    "tagabasa",
+    "manonood",
+    "nakikinig",
+    "rider"
+  ],
+  "arrival": [
+    "pagdating",
+    "paglapit",
+    "pag-uwi",
+    "araybal"
+  ],
+  "lopez": [
+    "lopez",
+    "pangalan",
+    "apelyido",
+    "lopes"
+  ],
+  "age": [
+    "edad",
+    "taon",
+    "gulang",
+    "tanda",
+    "edj"
+  ],
+  "aiming": [
+    "naglalayong",
+    "nagpaplano",
+    "nagnanais",
+    "nag-aasam",
+    "eyming"
+  ],
+  "maria": [
+    "maria",
+    "babae",
+    "birhen"
+  ],
+  "script": [
+    "baybayin",
+    "sulat",
+    "dalampasigan",
+    "alpabeto"
+  ],
+  "difficult": [
+    "mahirap",
+    "dukha",
+    "komplikado",
+    "mabigat",
+    "hard"
+  ],
+  "contribution": [
+    "ambag",
+    "kontribusyon",
+    "tulong",
+    "bigay"
+  ],
+  "methodology": [
+    "metodolohiya",
+    "proseso",
+    "sistema",
+    "paraan",
+    "metodolodyi"
+  ],
+  "marcos": [
+    "marcos",
+    "pangalan",
+    "apelyido",
+    "markos"
+  ],
+  "late": [
+    "huli",
+    "dulo",
+    "wakas",
+    "pinal",
+    "leyt"
+  ],
+  "necessary": [
+    "kinakailangang",
+    "kailangan",
+    "dapat",
+    "nararapat",
+    "nided"
+  ],
+  "arguably": [
+    "masasabing",
+    "matatawag",
+    "maituturing",
+    "maipapalagay",
+    "seyings"
+  ],
+  "asian": [
+    "asian",
+    "asyano",
+    "oriental",
+    "taga-asya",
+    "asyan"
+  ],
+  "asynchronous": [
+    "asynchronous",
+    "di-kasabay",
+    "hiwalay",
+    "sarili",
+    "asinkronus"
+  ],
+  "gig": [
+    "gig",
+    "trabaho",
+    "palabas",
+    "tugtog"
+  ],
+  "global": [
+    "global",
+    "pandaigdig",
+    "mundo",
+    "pangkalahatan"
+  ],
+  "motivation": [
+    "motibasyon",
+    "dahilan",
+    "inspirasyon",
+    "layunin"
+  ],
+  "writer": [
+    "manunulat",
+    "awtor",
+    "makata",
+    "tagasulat",
+    "rayter"
+  ],
+  "percentage": [
+    "bahagdan",
+    "porsyento",
+    "parte",
+    "hati"
+  ],
+  "freedom": [
+    "kalayaan",
+    "kasarinlan",
+    "laya",
+    "independensya",
+    "pridem"
+  ],
+  "graduate": [
+    "graduate",
+    "tapos",
+    "nagtapos",
+    "alumni",
+    "gradweyt"
+  ],
+  "recommendation": [
+    "rekomendasyon",
+    "mungkahi",
+    "payo",
+    "suhestiyon"
+  ],
+  "spirit": [
+    "diwa",
+    "isip",
+    "kaluluwa",
+    "kahulugan",
+    "isspiritu"
+  ],
+  "higher": [
+    "higher",
+    "mataas",
+    "lalo",
+    "higit",
+    "hayer"
+  ],
+  "coast": [
+    "coast",
+    "baybayin",
+    "pampang",
+    "dalampasigan",
+    "kowst"
+  ],
+  "service": [
+    "serbisyo",
+    "lingcod",
+    "tulong",
+    "gawain"
+  ],
+  "business": [
+    "business",
+    "negosyo",
+    "kalakalan",
+    "trabaho",
+    "bisnes"
+  ],
+  "home": [
+    "tahanan",
+    "bahay",
+    "tirahan",
+    "pamilya",
+    "hom"
+  ],
+  "bulacan": [
+    "bulacan",
+    "lalawigan",
+    "probinsya",
+    "bulakan"
+  ],
+  "laguna": [
+    "laguna",
+    "probinsya",
+    "lawa"
+  ],
+  "junyee": [
+    "junyee",
+    "pangalan",
+    "tao"
+  ],
+  "foreign": [
+    "banyagang",
+    "dayuhan",
+    "estranghero",
+    "iba",
+    "poren"
+  ],
+  "character": [
+    "tauhan",
+    "tao",
+    "empleyado",
+    "karakter",
+    "istap"
+  ],
+  "legend": [
+    "alamat",
+    "kwento",
+    "mitolohiya",
+    "pinagmulan",
+    "lejend"
+  ],
+  "increasingly": [
+    "lalong",
+    "higit",
+    "mas",
+    "labis",
+    "mor"
+  ],
+  "summary": [
+    "buod",
+    "kabuuan",
+    "summary",
+    "iksi",
+    "samari"
+  ],
+  "pre-service": [
+    "pre-service",
+    "bago",
+    "nag-aaral",
+    "pagsasanay",
+    "pre-serbis"
+  ],
+  "inquirer": [
+    "inquirer",
+    "nagtatanong",
+    "pahayagan",
+    "dyaryo",
+    "inkuwayrer"
+  ],
+  "carried/brought": [
+    "dala",
+    "bitbit",
+    "karga",
+    "bunga"
+  ],
+  "duty": [
+    "tungkulin",
+    "responsibilidad",
+    "papel",
+    "trabaho",
+    "dyuti"
+  ],
+  "scope": [
+    "saklaw",
+    "sakop",
+    "abot",
+    "limitasyon",
+    "iskop"
+  ],
+  "name": [
+    "pangalan",
+    "tawag",
+    "ngalan",
+    "titulo",
+    "neym"
+  ],
+  "formed": [
+    "nabuo",
+    "nagawa",
+    "nayari",
+    "natapos",
+    "buo"
+  ],
+  "famous": [
+    "kilala",
+    "sikat",
+    "tanyag",
+    "alam"
+  ],
+  "zoom": [
+    "zoom",
+    "lapit",
+    "video",
+    "tawag",
+    "zum"
+  ],
+  "worldwide": [
+    "pandaigdigang",
+    "nasyonal",
+    "global",
+    "buong"
+  ],
+  "elementary": [
+    "elementarya",
+    "mababa",
+    "paaralan",
+    "grado",
+    "elementari"
+  ],
+  "collective": [
+    "kolektibong",
+    "pangkalahatan",
+    "samahan",
+    "grupo",
+    "kolektib"
+  ],
+  "tugano": [
+    "tugano",
+    "apelyido",
+    "tao",
+    "pangalan"
+  ],
+  "act": [
+    "act",
+    "batas",
+    "gawa",
+    "kilos",
+    "akt"
+  ],
+  "road": [
+    "road",
+    "kalsada",
+    "daan",
+    "kalye",
+    "rod"
+  ],
+  "emerged": [
+    "lumabas",
+    "nagpakita",
+    "sumulpot",
+    "nalaman",
+    "apir"
+  ],
+  "natural": [
+    "likas",
+    "natural",
+    "katutubo",
+    "orihinal",
+    "karaniwan",
+    "normal"
+  ],
+  "video": [
+    "video",
+    "pelikula",
+    "palabas",
+    "clip",
+    "bidyo"
+  ],
+  "selection": [
+    "pagpili",
+    "pagkuha",
+    "pagpapasya",
+    "eleksyon",
+    "pag-tsus"
+  ],
+  "thorough": [
+    "masusing",
+    "maingat",
+    "mabusisi",
+    "matalim",
+    "maigi"
+  ],
+  "analyze": [
+    "suriin",
+    "tignan",
+    "busisiin",
+    "aralin",
+    "i-analisa"
+  ],
+  "megaworld": [
+    "megaworld",
+    "kumpanya",
+    "negosyo",
+    "korporasyon"
+  ],
+  "site": [
+    "site",
+    "lugar",
+    "pwesto",
+    "website",
+    "sayt"
+  ],
+  "struggle": [
+    "pakikibaka",
+    "laban",
+    "away",
+    "giyera",
+    "istragel"
+  ],
+  "performing": [
+    "isinasagawa",
+    "ginagawa",
+    "tinatrabaho",
+    "pinapatupad",
+    "duing"
+  ],
+  "tool": [
+    "kasangkapan",
+    "gamit",
+    "materyales",
+    "instrumento",
+    "tul"
+  ],
+  "paragua": [
+    "paragua",
+    "palawan",
+    "lugar",
+    "probinsya"
+  ],
+  "ensure": [
+    "matiyak",
+    "masiguro",
+    "malaman",
+    "mapatunayan",
+    "isyur"
+  ],
+  "march": [
+    "march",
+    "marso",
+    "buwan",
+    "petsa",
+    "mats"
+  ],
+  "delivery": [
+    "delivery",
+    "padala",
+    "bigay",
+    "paghahatid",
+    "diliberi"
+  ],
+  "summit": [
+    "summit",
+    "pulong",
+    "tuktok",
+    "pagtitipon",
+    "samit"
+  ],
+  "agreeing": [
+    "sumasang",
+    "pumapayag",
+    "umaayon",
+    "bumuboto",
+    "agri"
+  ],
+  "written": [
+    "isinulat",
+    "ginawa",
+    "inakda",
+    "nilimbag",
+    "royt",
+    "pasulat",
+    "nakasulat",
+    "titik",
+    "papel",
+    "ritten"
+  ],
+  "beautiful": [
+    "magandang",
+    "marikit",
+    "mabuti",
+    "maayos",
+    "byutiful"
+  ],
+  "sway": [
+    "kemdeng",
+    "sayaw",
+    "kembot",
+    "galaw"
+  ],
+  "tourist": [
+    "turista",
+    "dayuhan",
+    "bisita",
+    "byahero",
+    "turis"
+  ],
+  "ched": [
+    "ched",
+    "komisyon"
+  ],
+  "presented": [
+    "inilahad",
+    "pinakita",
+    "binanggit",
+    "inilabas",
+    "prinesent"
+  ],
+  "instruction": [
+    "instruction",
+    "utos",
+    "turo",
+    "panuto",
+    "instraksyon"
+  ],
+  "relevance": [
+    "kinalaman",
+    "kaugnayan",
+    "koneksyon",
+    "pakialam",
+    "releyted"
+  ],
+  "representation": [
+    "representasyon",
+    "simbolo",
+    "imahe",
+    "kinatawan"
+  ],
+  "collaborative": [
+    "kolaboratibong",
+    "tulungan",
+    "samahan",
+    "grupo",
+    "kolaboratib"
+  ],
+  "give": [
+    "magbigay",
+    "magkaloob",
+    "mag-abot",
+    "mag-alay",
+    "gib"
+  ],
+  "moderately": [
+    "moderately",
+    "katamtaman",
+    "medyo",
+    "sakto",
+    "modereytli"
+  ],
+  "found": [
+    "matatagpuan",
+    "makikita",
+    "hahanapin",
+    "naroroon",
+    "paund"
+  ],
+  "action": [
+    "pagkilos",
+    "galaw",
+    "aksyon",
+    "gawa"
+  ],
+  "successful": [
+    "matagumpay",
+    "wagi",
+    "panalo",
+    "nakaangat",
+    "saksespul"
+  ],
+  "start": [
+    "simula",
+    "umpisa",
+    "una",
+    "pinagmulan",
+    "start"
+  ],
+  "john": [
+    "john",
+    "juan",
+    "pangalan",
+    "tao",
+    "dyon"
+  ],
+  "particles": [
+    "ay",
+    "ang",
+    "mga",
+    "si",
+    "sina",
+    "nina",
+    "kay",
+    "sa",
+    "na",
+    "ng",
+    "at",
+    "ni"
   ]
 }
