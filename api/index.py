@@ -10,7 +10,7 @@ from slowapi.errors import RateLimitExceeded
 from starlette.requests import Request
 
 # Ini-import natin yung algorithm na ginawa natin kanina
-from enhanced_rabinkarp import check_plagiarism
+from api.enhanced_rabinkarp import check_plagiarism
 
 # Setup Rate Limiter
 limiter = Limiter(key_func=get_remote_address)
