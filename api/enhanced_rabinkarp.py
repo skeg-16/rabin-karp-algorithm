@@ -7,6 +7,7 @@ Includes Dictionary-Based Normalization and Filipino Stop-Word Removal.
 import re
 import json
 import os
+import logging
 
 # ─────────────────────────────────────────────────────────────────────────────
 # PHASE 1: BILINGUAL PRE-PROCESSING MODULE
@@ -19,10 +20,10 @@ def load_json_file(filename):
         with open(file_path, 'r', encoding='utf-8') as file:
             return json.load(file)
     except FileNotFoundError:
-        print(f"Warning: {filename} not found in the root folder.")
+        logging.warning(f"{filename} not found in the root folder.")
         return None
     except json.JSONDecodeError:
-        print(f"Warning: {filename} is empty or invalid.")
+        logging.warning(f"{filename} is empty or invalid.")
         return None
 
 # Load Stop-words (solves SOP #2: Algorithmic Noise)
@@ -94,24 +95,6 @@ def roll_hash(old_hash, old_char, new_char, window):
     high  = pow(BASE, window - 1, PRIME)
     new_h = (BASE * (old_hash - ord(old_char) * high) + ord(new_char)) % PRIME
     return new_h
-
-def rabin_karp_search(pattern, text):
-    m, n = len(pattern), len(text)
-    matches = []
-    spurious = 0
-    if m == 0 or m > n:
-        return matches, spurious
-    p_hash = compute_hash(pattern, m)
-    t_hash = compute_hash(text, m)
-    for i in range(n - m + 1):
-        if p_hash == t_hash:
-            if text[i:i + m] == pattern:
-                matches.append(i)
-            else:
-                spurious += 1
-        if i < n - m:
-            t_hash = roll_hash(t_hash, text[i], text[i + m], m)
-    return matches, spurious
 
 def get_ngram_hashes(text, n):
     hashes = set()

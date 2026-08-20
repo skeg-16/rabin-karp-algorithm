@@ -428,9 +428,12 @@ function App() {
 
       {/* HEADER */}
       <header className="app-header">
-        <div className="brand-section">
-          <h1>Rabin-Karp Algorithm</h1>
-          <p>Cross-Lingual Plagiarism Detection • Tagalog-English Normalization</p>
+        <div className="brand-section" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <img src="/logo.png" alt="OtterScan Logo" style={{ width: '56px', height: '56px', borderRadius: '12px', objectFit: 'cover' }} />
+          <div>
+            <h1>OtterScan</h1>
+            <p>Cross-Lingual Plagiarism Detection by Otter Software System</p>
+          </div>
         </div>
         <button className="theme-toggle" onClick={toggleTheme}>
           {theme === 'light' ? <MoonIcon /> : <SunIcon />}
