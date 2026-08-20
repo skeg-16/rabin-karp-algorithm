@@ -428,11 +428,11 @@ function App() {
 
       {/* HEADER */}
       <header className="app-header">
-        <div className="brand-section" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <img src="/logo.png" alt="OtterScan Logo" style={{ width: '56px', height: '56px', borderRadius: '12px', objectFit: 'cover' }} />
+        <div className="brand-section" style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+          <img src="/logo.png" alt="OtterScan Logo" style={{ width: '80px', height: '80px', objectFit: 'contain' }} />
           <div>
-            <h1>OtterScan</h1>
-            <p>Cross-Lingual Plagiarism Detection by Otter Software System</p>
+            <h1 style={{ fontSize: '2.25rem' }}>OtterScan</h1>
+            <p style={{ fontSize: '1rem', marginTop: '0.25rem' }}>Cross-Lingual Plagiarism Detection by Otter Software System</p>
           </div>
         </div>
         <button className="theme-toggle" onClick={toggleTheme}>
