@@ -429,9 +429,11 @@ function App() {
       {/* HEADER */}
       <header className="app-header">
         <div className="brand-section" style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-          <img src="/logo.png" alt="OtterGuard Logo" style={{ width: '85px', height: '85px', objectFit: 'contain', filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.15))' }} />
+          <div style={{ width: '85px', height: '85px', borderRadius: '50%', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#0b1120', boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}>
+            <img src="/logo.png" alt="OtterLens Logo" style={{ width: '130%', height: '130%', objectFit: 'cover' }} />
+          </div>
           <div>
-            <h1 style={{ fontSize: '2.5rem', letterSpacing: '-0.02em', background: 'linear-gradient(135deg, #00A3FF, #ffffff)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: '0' }}>OtterGuard</h1>
+            <h1 style={{ fontSize: '2.5rem', letterSpacing: '-0.02em', background: 'linear-gradient(135deg, #00A3FF, #ffffff)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: '0' }}>OtterLens</h1>
             <p style={{ fontSize: '1.05rem', marginTop: '0.25rem', fontWeight: '500', opacity: 0.9 }}>Cross-Lingual Plagiarism Detection by Otter Software System</p>
           </div>
         </div>
