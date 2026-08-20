@@ -430,7 +430,7 @@ function App() {
       <header className="app-header">
         <div className="brand-section" style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
           <div style={{ width: '85px', height: '85px', borderRadius: '50%', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#0b1120', boxShadow: '0 4px 12px rgba(0,0,0,0.15)' }}>
-            <img src="/logo.png" alt="OtterLens Logo" style={{ width: '130%', height: '130%', objectFit: 'cover' }} />
+            <img src="/logo.png" alt="OtterLens Logo" style={{ width: '220%', height: '220%', objectFit: 'cover' }} />
           </div>
           <div>
             <h1 style={{ fontSize: '2.5rem', letterSpacing: '-0.02em', background: 'linear-gradient(135deg, #00A3FF, #ffffff)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: '0' }}>OtterLens</h1>
