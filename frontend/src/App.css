@@ -189,11 +189,12 @@
   color: var(--accent);
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
   border: 1px solid transparent;
   transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 .file-input-label:hover {
@@ -921,6 +922,14 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.box-title {
+  white-space: nowrap;
+  font-size: 1.125rem;
+  margin: 0;
 }
 
 .doc-tabs {
