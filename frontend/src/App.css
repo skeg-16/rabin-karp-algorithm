@@ -1,5 +1,6 @@
 .app-container {
-  max-width: 1200px;
+  max-width: 1600px;
+  width: 95%;
   margin: 0 auto;
   padding: 2rem 1.5rem;
 }
@@ -684,19 +685,8 @@
 
 .log-text {
   display: block;
-  margin-top: 0.5rem;
-  color: #e2e8f0;
-  background: #1e293b;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  border-left: 3px solid var(--accent);
-  line-height: 1.6;
-  font-size: 0.8rem;
-  white-space: pre-wrap;
-}
-
-.log-entry.suspect .log-text {
-  border-left-color: var(--danger);
+  margin-top: 0.25rem;
+  color: #cbd5e1;
 }
 
 .log-entry strong {
@@ -953,7 +943,7 @@
   font-family: 'Times New Roman', Times, serif;
   font-size: 1.05rem;
   color: #000000;
-  height: 400px;
+  height: 320px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
 
