@@ -630,17 +630,19 @@
 }
 
 .highlighted-sentence {
-  background: rgba(253, 224, 71, 0.3);
-  border-bottom: 2px solid #eab308;
-  border-radius: 2px;
-  padding: 0 2px;
+  background: rgba(253, 224, 71, 0.4);
+  border: 1px solid rgba(234, 179, 8, 0.4);
+  border-radius: 6px;
+  padding: 2px 4px;
   font-weight: 500;
   color: inherit;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
 .dark .highlighted-sentence {
-  background: rgba(234, 179, 8, 0.2);
-  border-bottom-color: #f59e0b;
+  background: rgba(234, 179, 8, 0.25);
+  border-color: rgba(234, 179, 8, 0.3);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.3);
 }
 
 /* System Logs */
@@ -662,9 +664,28 @@
   gap: 0.5rem;
 }
 
+.log-description {
+  color: #64748b;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+  font-size: 0.75rem;
+}
+
+.log-description.subtle {
+  margin-bottom: 0.25rem;
+  font-style: italic;
+  font-size: 0.7rem;
+}
+
 .log-entry {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
   word-break: break-all;
+}
+
+.log-text {
+  display: block;
+  margin-top: 0.25rem;
+  color: #cbd5e1;
 }
 
 .log-entry strong {
@@ -877,6 +898,80 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
+}
+
+.box-title-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.doc-tabs {
+  display: flex;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 2rem;
+  padding: 0.2rem;
+}
+
+.tab-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  padding: 0.25rem 0.6rem;
+  border-radius: 1.5rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tab-btn:hover {
+  color: var(--text-primary);
+}
+
+.tab-btn.active {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-color);
+}
+
+.formatted-view-container {
+  overflow-y: auto;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  font-size: 0.9375rem;
+  color: var(--text-primary);
+  height: 300px;
+}
+
+.formatted-content h3 {
+  font-size: 1.1rem;
+  margin-top: 1.2rem;
+  margin-bottom: 0.6rem;
+  color: var(--text-primary);
+  font-weight: 700;
+}
+.formatted-content h3:first-child {
+  margin-top: 0;
+}
+
+.formatted-content p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.formatted-content ul {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.formatted-content li {
+  margin-bottom: 0.4rem;
+  line-height: 1.5;
 }
 
 .highlight-legend {

@@ -44,6 +44,43 @@ const TrashIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
 );
 
+// Heuristic text formatting for Formatted View
+const renderFormattedText = (text, type) => {
+  if (!text) return <div className="placeholder-text">No document loaded. Upload a file or switch to <strong>Raw Text</strong> to paste manually.</div>;
+  
+  const blocks = text.split(/\n\s*\n/);
+  return (
+    <div className="formatted-content">
+      {blocks.map((block, index) => {
+        const cleanBlock = block.trim();
+        if (!cleanBlock) return null;
+        
+        // Detect headers (short line, uppercase or title case, no ending punctuation)
+        if (cleanBlock.length < 80 && cleanBlock.split('\n').length === 1 && !cleanBlock.match(/[.!?]$/)) {
+          return <h3 key={index}>{cleanBlock}</h3>;
+        }
+        
+        // Detect lists
+        if (cleanBlock.match(/^[•\-*]|\d+\./m)) {
+          const items = cleanBlock.split('\n');
+          return (
+            <ul key={index}>
+              {items.map((item, i) => {
+                const cleanItem = item.trim();
+                if (!cleanItem) return null;
+                return <li key={i}>{cleanItem.replace(/^[•\-*]|\d+\.\s*/, '').trim()}</li>;
+              })}
+            </ul>
+          );
+        }
+        
+        // Paragraph
+        return <p key={index}>{cleanBlock}</p>;
+      })}
+    </div>
+  );
+};
+
 // API Base URL Configuration (Hardcoded for local testing stability)
 const API_BASE_URL = '';
 function App() {
@@ -55,6 +92,10 @@ function App() {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
   const [notification, setNotification] = useState(null);
   
+  // Tab states
+  const [sourceTab, setSourceTab] = useState('formatted');
+  const [suspectTab, setSuspectTab] = useState('formatted');
+
   // Drag & Processing states
   const [dragActiveSource, setDragActiveSource] = useState(false);
   const [dragActiveSuspect, setDragActiveSuspect] = useState(false);
@@ -449,7 +490,13 @@ function App() {
         <div className="card">
           <div className="card-header">
             <div className="box-header-flex">
-              <h2 className="box-title source">Source Document (English)</h2>
+              <div className="box-title-group">
+                <h2 className="box-title source">Source Document (English)</h2>
+                <div className="doc-tabs">
+                  <button className={`tab-btn ${sourceTab === 'formatted' ? 'active' : ''}`} onClick={() => setSourceTab('formatted')}>Formatted View</button>
+                  <button className={`tab-btn ${sourceTab === 'raw' ? 'active' : ''}`} onClick={() => setSourceTab('raw')}>Raw Text</button>
+                </div>
+              </div>
               <div className="header-actions">
                 <button className="icon-btn clear-action" onClick={() => handleClear('source')} data-tooltip="Clear Document">
                   <TrashIcon />
@@ -491,12 +538,18 @@ function App() {
                 )}
               </div>
             )}
-            <textarea
-              className="modern-textarea"
-              value={sourceText}
-              onChange={(e) => setSourceText(e.target.value)}
-              placeholder="Paste original English text or drag a file here..."
-            />
+            {sourceTab === 'formatted' ? (
+              <div className="formatted-view-container modern-textarea">
+                {renderFormattedText(sourceText, 'source')}
+              </div>
+            ) : (
+              <textarea
+                className="modern-textarea"
+                value={sourceText}
+                onChange={(e) => setSourceText(e.target.value)}
+                placeholder="Paste original English text or drag a file here..."
+              />
+            )}
             <div className={`word-counter ${getWordCount(sourceText) > WORD_LIMIT ? 'limit-exceeded' : ''}`}>
               {getWordCount(sourceText).toLocaleString()} / {WORD_LIMIT.toLocaleString()} words
             </div>
@@ -507,7 +560,13 @@ function App() {
         <div className="card">
           <div className="card-header">
             <div className="box-header-flex">
-              <h2 className="box-title suspect">Suspect Document (Taglish)</h2>
+              <div className="box-title-group">
+                <h2 className="box-title suspect">Suspect Document (Taglish)</h2>
+                <div className="doc-tabs">
+                  <button className={`tab-btn ${suspectTab === 'formatted' ? 'active' : ''}`} onClick={() => setSuspectTab('formatted')}>Formatted View</button>
+                  <button className={`tab-btn ${suspectTab === 'raw' ? 'active' : ''}`} onClick={() => setSuspectTab('raw')}>Raw Text</button>
+                </div>
+              </div>
               <div className="header-actions">
                 <button className="icon-btn clear-action" onClick={() => handleClear('suspect')} data-tooltip="Clear Document">
                   <TrashIcon />
@@ -549,12 +608,18 @@ function App() {
                 )}
               </div>
             )}
-            <textarea
-              className="modern-textarea"
-              value={suspectText}
-              onChange={(e) => setSuspectText(e.target.value)}
-              placeholder="Paste suspect Taglish text or drag a file here..."
-            />
+            {suspectTab === 'formatted' ? (
+              <div className="formatted-view-container modern-textarea">
+                {renderFormattedText(suspectText, 'suspect')}
+              </div>
+            ) : (
+              <textarea
+                className="modern-textarea"
+                value={suspectText}
+                onChange={(e) => setSuspectText(e.target.value)}
+                placeholder="Paste suspect Taglish text or drag a file here..."
+              />
+            )}
             <div className={`word-counter ${getWordCount(suspectText) > WORD_LIMIT ? 'limit-exceeded' : ''}`}>
               {getWordCount(suspectText).toLocaleString()} / {WORD_LIMIT.toLocaleString()} words
             </div>
@@ -716,13 +781,13 @@ function App() {
             </div>
             <div className="info-content">
               <p>
-                The <strong>yellow highlights</strong> indicate sentences where the system detected a significant amount of text reuse. 
-                Unlike basic algorithms, this system uses <strong>Flexible N-gram Matching</strong>:
+                The <strong>highlighted backgrounds</strong> indicate sentences where the system detected a significant amount of text reuse. 
+                Unlike basic word-for-word algorithms, this system uses <strong>Flexible N-gram Matching</strong> which is designed for cross-lingual scenarios:
               </p>
               <ul>
-                <li><strong>Bilingual Detection:</strong> It recognizes matches even if English words were translated to Tagalog (e.g., "Student" to "Mag-aaral").</li>
-                <li><strong>30% Threshold:</strong> A sentence is highlighted if at least <strong>30%</strong> of its unique fragments (N-grams) match the source document. This ensures that even "paraphrased" sentences are caught.</li>
-                <li><strong>Noise Reduction:</strong> Common words (ang, mga, the, is) are ignored to focus on the actual content.</li>
+                <li><strong>Bilingual Detection:</strong> It recognizes matches even if English words were translated to Tagalog (e.g., "Student" overlapping with "Mag-aaral" structure).</li>
+                <li><strong>30% Threshold:</strong> A sentence is flagged if at least <strong>30%</strong> of its unique structural fragments (N-grams) match the source document. This ensures that even "heavily paraphrased" sentences are caught if the core structure remains identical.</li>
+                <li><strong>Noise Reduction:</strong> Common linking words and particles (ang, mga, the, is) are ignored to focus entirely on the actual content and logic.</li>
               </ul>
             </div>
           </div>
@@ -733,11 +798,17 @@ function App() {
               <TerminalIcon />
               <span>Normalization Logs (Pre-Hashing Phase)</span>
             </div>
+            <div className="log-description">
+              <p>This section shows how the system "cleans" your text before running the core algorithm. It converts everything to lowercase, removes punctuation, and standardizes spacing. This ensures that a student cannot trick the system simply by changing capitalization or adding extra commas.</p>
+            </div>
             <div className="log-entry">
-              <strong>SOURCE:</strong> {results.normalized_source}
+              <strong>SOURCE (Normalized):</strong> 
+              <span className="log-text">{results.normalized_source}</span>
             </div>
             <div className="log-entry suspect">
-              <strong>SUSPECT:</strong> {results.normalized_suspect}
+              <strong>SUSPECT (Normalized):</strong>
+              <div className="log-description subtle">This is the cleaned version of the Taglish document being investigated for plagiarism.</div>
+              <span className="log-text">{results.normalized_suspect}</span>
             </div>
           </div>
         </div>
