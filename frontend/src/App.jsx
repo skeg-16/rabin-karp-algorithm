@@ -490,14 +490,12 @@ function App() {
         <div className="card">
           <div className="card-header">
             <div className="box-header-flex">
-              <div className="box-title-group">
-                <h2 className="box-title source">Source Document (English)</h2>
+              <h2 className="box-title source">Source Document (English)</h2>
+              <div className="header-actions">
                 <div className="doc-tabs">
                   <button className={`tab-btn ${sourceTab === 'formatted' ? 'active' : ''}`} onClick={() => setSourceTab('formatted')}>Formatted View</button>
                   <button className={`tab-btn ${sourceTab === 'raw' ? 'active' : ''}`} onClick={() => setSourceTab('raw')}>Raw Text</button>
                 </div>
-              </div>
-              <div className="header-actions">
                 <button className="icon-btn clear-action" onClick={() => handleClear('source')} data-tooltip="Clear Document">
                   <TrashIcon />
                 </button>
@@ -560,14 +558,12 @@ function App() {
         <div className="card">
           <div className="card-header">
             <div className="box-header-flex">
-              <div className="box-title-group">
-                <h2 className="box-title suspect">Suspect Document (Taglish)</h2>
+              <h2 className="box-title suspect">Suspect Document (Taglish)</h2>
+              <div className="header-actions">
                 <div className="doc-tabs">
                   <button className={`tab-btn ${suspectTab === 'formatted' ? 'active' : ''}`} onClick={() => setSuspectTab('formatted')}>Formatted View</button>
                   <button className={`tab-btn ${suspectTab === 'raw' ? 'active' : ''}`} onClick={() => setSuspectTab('raw')}>Raw Text</button>
                 </div>
-              </div>
-              <div className="header-actions">
                 <button className="icon-btn clear-action" onClick={() => handleClear('suspect')} data-tooltip="Clear Document">
                   <TrashIcon />
                 </button>

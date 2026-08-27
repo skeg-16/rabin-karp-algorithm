@@ -684,8 +684,19 @@
 
 .log-text {
   display: block;
-  margin-top: 0.25rem;
-  color: #cbd5e1;
+  margin-top: 0.5rem;
+  color: #e2e8f0;
+  background: #1e293b;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border-left: 3px solid var(--accent);
+  line-height: 1.6;
+  font-size: 0.8rem;
+  white-space: pre-wrap;
+}
+
+.log-entry.suspect .log-text {
+  border-left-color: var(--danger);
 }
 
 .log-entry strong {
@@ -900,11 +911,7 @@
   width: 100%;
 }
 
-.box-title-group {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
+/* Removed box-title-group as doc-tabs moved to header-actions */
 
 .doc-tabs {
   display: flex;
@@ -939,24 +946,34 @@
 
 .formatted-view-container {
   overflow-y: auto;
-  background: var(--bg-primary);
+  background: #ffffff;
   border: 1px solid var(--border-color);
-  border-radius: 0.75rem;
-  padding: 1rem;
-  font-size: 0.9375rem;
-  color: var(--text-primary);
-  height: 300px;
+  border-radius: 4px;
+  padding: 2.5rem 3rem;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 1.05rem;
+  color: #000000;
+  height: 400px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.dark .formatted-view-container {
+  background: #cbd5e1;
+  color: #0f172a;
 }
 
 .formatted-content h3 {
   font-size: 1.1rem;
-  margin-top: 1.2rem;
-  margin-bottom: 0.6rem;
-  color: var(--text-primary);
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: inherit;
   font-weight: 700;
 }
 .formatted-content h3:first-child {
   margin-top: 0;
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .formatted-content p {
