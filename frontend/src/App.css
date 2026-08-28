@@ -708,8 +708,13 @@
 
 .log-text {
   display: block;
-  margin-top: 0.25rem;
-  color: #cbd5e1;
+  margin-top: 0.75rem;
+  padding: 1rem;
+  background: var(--accent-soft);
+  color: #e2e8f0;
+  border-radius: 0.5rem;
+  border-left: 3px solid var(--accent);
+  line-height: 1.6;
 }
 
 .log-entry strong {
@@ -718,6 +723,11 @@
 
 .log-entry.suspect strong {
   color: var(--danger);
+}
+
+.log-entry.suspect .log-text {
+  background: var(--danger-soft);
+  border-left-color: var(--danger);
 }
 
 /* Icons Replacement Styles */
