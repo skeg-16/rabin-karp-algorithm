@@ -52,6 +52,15 @@ const TrashIcon = () => (
   </svg>
 );
 
+const MaximizeIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M8 3H5a2 2 0 0 0-2 2v3"></path>
+    <path d="M21 8V5a2 2 0 0 0-2-2h-3"></path>
+    <path d="M3 16v3a2 2 0 0 0 2 2h3"></path>
+    <path d="M16 21h3a2 2 0 0 0 2-2v-3"></path>
+  </svg>
+);
+
 // Heuristic text formatting for Formatted View
 const renderFormattedText = (text, type) => {
   if (!text) return <div className="placeholder-text">No document loaded. Upload a file or switch to <strong>Raw Text</strong> to paste manually.</div>;
@@ -95,6 +104,9 @@ function App() {
   const [sourceText, setSourceText] = useState('');
   const [suspectText, setSuspectText] = useState('');
   const [windowSize, setWindowSize] = useState('5');
+  
+  // Expanded document view state ('source', 'suspect', or null)
+  const [expandedDoc, setExpandedDoc] = useState(null);
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(false);
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
@@ -282,6 +294,16 @@ function App() {
     const file = e.target.files[0];
     processFile(file, type);
     e.target.value = ""; // Reset
+  };
+
+  const handleDrag = (e, setDragActive) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === "dragenter" || e.type === "dragover") {
+      setDragActive(true);
+    } else if (e.type === "dragleave") {
+      setDragActive(false);
+    }
   };
 
   const handleDrop = (e, type, setDragActive) => {
@@ -504,6 +526,9 @@ function App() {
                   <button className={`tab-btn ${sourceTab === 'formatted' ? 'active' : ''}`} onClick={() => setSourceTab('formatted')}>Formatted View</button>
                   <button className={`tab-btn ${sourceTab === 'raw' ? 'active' : ''}`} onClick={() => setSourceTab('raw')}>Raw Text</button>
                 </div>
+                <button className="icon-btn clear-action" onClick={() => setExpandedDoc('source')} data-tooltip="Fullscreen View">
+                  <MaximizeIcon />
+                </button>
                 <button className="icon-btn clear-action" onClick={() => handleClear('source')} data-tooltip="Clear Document">
                   <TrashIcon />
                 </button>
@@ -572,6 +597,9 @@ function App() {
                   <button className={`tab-btn ${suspectTab === 'formatted' ? 'active' : ''}`} onClick={() => setSuspectTab('formatted')}>Formatted View</button>
                   <button className={`tab-btn ${suspectTab === 'raw' ? 'active' : ''}`} onClick={() => setSuspectTab('raw')}>Raw Text</button>
                 </div>
+                <button className="icon-btn clear-action" onClick={() => setExpandedDoc('suspect')} data-tooltip="Fullscreen View">
+                  <MaximizeIcon />
+                </button>
                 <button className="icon-btn clear-action" onClick={() => handleClear('suspect')} data-tooltip="Clear Document">
                   <TrashIcon />
                 </button>
@@ -630,6 +658,23 @@ function App() {
           </div>
         </div>
       </div>
+
+      {/* FULLSCREEN MODAL */}
+      {expandedDoc && (
+        <div className="fullscreen-overlay" onClick={() => setExpandedDoc(null)}>
+          <div className="fullscreen-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="fullscreen-header">
+              <h2>{expandedDoc === 'source' ? 'Source Document (English)' : 'Suspect Document (Taglish)'}</h2>
+              <button className="close-modal-btn" onClick={() => setExpandedDoc(null)}>
+                <XIcon />
+              </button>
+            </div>
+            <div className="fullscreen-content formatted-view-container modern-textarea">
+              {expandedDoc === 'source' ? renderFormattedText(sourceText, 'source') : renderFormattedText(suspectText, 'suspect')}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* CONTROLS */}
       <div className="controls-bar">
