@@ -703,14 +703,17 @@ function App() {
                 <div className="stat-item">
                   <span className="stat-label">Matched Sentences</span>
                   <span className="stat-value">{results.matched_count} / {results.total_sentences}</span>
+                  <span className="stat-desc">Exact or highly similar sentence pairs found between documents.</span>
                 </div>
                 <div className="stat-item">
                   <span className="stat-label">Spurious Matches</span>
                   <span className="stat-value">{results.spurious_count}</span>
+                  <span className="stat-desc">False positive hash collisions that were safely filtered out.</span>
                 </div>
                 <div className="stat-item">
                   <span className="stat-label">Algorithm</span>
                   <span className="stat-value">Rabin-Karp</span>
+                  <span className="stat-desc">Rolling hash algorithm used for fast and exact string matching.</span>
                 </div>
               </div>
             </div>

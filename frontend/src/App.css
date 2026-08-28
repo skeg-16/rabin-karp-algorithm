@@ -618,6 +618,15 @@
   font-weight: 600;
 }
 
+.stat-desc {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  margin-top: 0.5rem;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
 /* Side-by-Side Comparison */
 .comparison-grid {
   display: grid;
