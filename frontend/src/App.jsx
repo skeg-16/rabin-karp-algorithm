@@ -526,9 +526,7 @@ function App() {
                   <button className={`tab-btn ${sourceTab === 'formatted' ? 'active' : ''}`} onClick={() => setSourceTab('formatted')}>Formatted View</button>
                   <button className={`tab-btn ${sourceTab === 'raw' ? 'active' : ''}`} onClick={() => setSourceTab('raw')}>Raw Text</button>
                 </div>
-                <button className="icon-btn clear-action" onClick={() => setExpandedDoc('source')} data-tooltip="Fullscreen View">
-                  <MaximizeIcon />
-                </button>
+
                 <button className="icon-btn clear-action" onClick={() => handleClear('source')} data-tooltip="Clear Document">
                   <TrashIcon />
                 </button>
@@ -581,8 +579,13 @@ function App() {
                 placeholder="Paste original English text or drag a file here..."
               />
             )}
-            <div className={`word-counter ${getWordCount(sourceText) > WORD_LIMIT ? 'limit-exceeded' : ''}`}>
-              {getWordCount(sourceText).toLocaleString()} / {WORD_LIMIT.toLocaleString()} words
+            <div className="bottom-right-actions">
+              <button className="icon-btn expand-btn" onClick={() => setExpandedDoc('source')} data-tooltip="Expand View">
+                <MaximizeIcon />
+              </button>
+              <div className={`word-counter ${getWordCount(sourceText) > WORD_LIMIT ? 'limit-exceeded' : ''}`}>
+                {getWordCount(sourceText).toLocaleString()} / {WORD_LIMIT.toLocaleString()} words
+              </div>
             </div>
           </div>
         </div>
@@ -597,9 +600,7 @@ function App() {
                   <button className={`tab-btn ${suspectTab === 'formatted' ? 'active' : ''}`} onClick={() => setSuspectTab('formatted')}>Formatted View</button>
                   <button className={`tab-btn ${suspectTab === 'raw' ? 'active' : ''}`} onClick={() => setSuspectTab('raw')}>Raw Text</button>
                 </div>
-                <button className="icon-btn clear-action" onClick={() => setExpandedDoc('suspect')} data-tooltip="Fullscreen View">
-                  <MaximizeIcon />
-                </button>
+
                 <button className="icon-btn clear-action" onClick={() => handleClear('suspect')} data-tooltip="Clear Document">
                   <TrashIcon />
                 </button>
@@ -652,8 +653,13 @@ function App() {
                 placeholder="Paste suspect Taglish text or drag a file here..."
               />
             )}
-            <div className={`word-counter ${getWordCount(suspectText) > WORD_LIMIT ? 'limit-exceeded' : ''}`}>
-              {getWordCount(suspectText).toLocaleString()} / {WORD_LIMIT.toLocaleString()} words
+            <div className="bottom-right-actions">
+              <button className="icon-btn expand-btn" onClick={() => setExpandedDoc('suspect')} data-tooltip="Expand View">
+                <MaximizeIcon />
+              </button>
+              <div className={`word-counter ${getWordCount(suspectText) > WORD_LIMIT ? 'limit-exceeded' : ''}`}>
+                {getWordCount(suspectText).toLocaleString()} / {WORD_LIMIT.toLocaleString()} words
+              </div>
             </div>
           </div>
         </div>

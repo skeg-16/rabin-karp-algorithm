@@ -750,20 +750,38 @@
   height: 20px;
 }
 
-/* Word Counter */
-.word-counter {
+/* Bottom Right Actions (Word Counter & Expand) */
+.bottom-right-actions {
   position: absolute;
   bottom: 0.75rem;
   right: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 5;
+}
+
+.word-counter {
   font-size: 0.75rem;
   color: var(--text-tertiary);
   background: var(--bg-primary);
   padding: 0.2rem 0.5rem;
   border-radius: 0.4rem;
   pointer-events: none;
-  z-index: 2;
   border: 1px solid var(--border-color);
   transition: all 0.2s;
+}
+
+.expand-btn {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.expand-btn:hover {
+  color: var(--accent);
+  border-color: var(--accent);
 }
 
 .limit-exceeded {
@@ -1222,8 +1240,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
+  background: rgba(15, 23, 42, 0.85); /* Solid dark instead of expensive blur to prevent lag */
   z-index: 1000;
   display: flex;
   justify-content: center;
@@ -1248,12 +1265,7 @@
   flex-direction: column;
   overflow: hidden;
   border: 1px solid var(--border-color);
-  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  animation: fadeIn 0.2s ease-out; /* Removed slideUp to optimize performance */
 }
 
 .fullscreen-header {
