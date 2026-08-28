@@ -37,6 +37,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+html {
+  font-size: 13px;
+}
+
 html.dark {
   --bg-primary: #0b1120;
   --bg-secondary: radial-gradient(circle at top center, #1a2a47 0%, #0b1120 100%);
