@@ -784,8 +784,8 @@ function App() {
                 </thead>
                 <tbody>
                   {SIMILARITY_SCALE.map((item, index) => {
-                    const isCurrent = parseFloat(results.similarity_percent) >= item.range[0] && 
-                                     parseFloat(results.similarity_percent) <= item.range[1];
+                    const roundedScore = Math.round(parseFloat(results.similarity_percent));
+                    const isCurrent = roundedScore >= item.range[0] && roundedScore <= item.range[1];
                     return (
                       <tr key={index} className={isCurrent ? 'active-row' : ''}>
                         <td className="score-range" style={{ color: item.color }}>
