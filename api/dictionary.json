@@ -3291,5 +3291,60 @@
     "ng",
     "at",
     "ni"
+  ],
+  "friend": [
+    "tropa",
+    "beshy",
+    "pare",
+    "repapips",
+    "kaibigan"
+  ],
+  "money": [
+    "datung",
+    "anda",
+    "kwarta",
+    "pera"
+  ],
+  "police": [
+    "lespu",
+    "parak",
+    "pulis"
+  ],
+  "father": [
+    "erpat",
+    "pudra",
+    "tatay"
+  ],
+  "mother": [
+    "ermat",
+    "mudra",
+    "nanay"
+  ],
+  "food": [
+    "chibog",
+    "lafang",
+    "pagkain"
+  ],
+  "brother": [
+    "utol",
+    "tol",
+    "bro",
+    "kuya"
+  ],
+  "sister": [
+    "sis",
+    "ate",
+    "ditse"
+  ],
+  "work": [
+    "raket",
+    "kayod",
+    "trabaho"
+  ],
+  "drunk": [
+    "wasted",
+    "lango",
+    "lasing",
+    "bangag"
   ]
 }
