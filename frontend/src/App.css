@@ -1317,3 +1317,7 @@
   border: none;
   background: transparent;
 }
+
+.dark .fullscreen-content.formatted-view-container {
+  color: var(--text-primary);
+}
